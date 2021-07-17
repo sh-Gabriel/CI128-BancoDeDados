@@ -5,9 +5,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "graph.h"
-// #include "Sistemas_Lineares.h"
-// #include "utils.h"
+#include "log.h"
+#include "erro.h"
 
 
 /**
@@ -21,7 +20,8 @@
  */
 int main(int argc, char *argv[]){	 
 	char line[1024];
-	VertexList *lista = NULL;
+	// VertexList *lista = NULL;
+	ListaLog *listaLog = NULL;
 
 	while (fgets(line, 1024, stdin)){
 		
@@ -30,13 +30,17 @@ int main(int argc, char *argv[]){
 		int identificador = atoi(strtok(NULL, " "));
 		char operacao = strtok(NULL, " ")[0];
 		char atributo = strtok(NULL, " ")[0];
-
+		/*
 		printf("Adicionando valor %d: \n", identificador);
 		lista = adiciona_vertice( lista, identificador);
 		printf("Buscando valor %d: \n", identificador);
 		Vertex *teste = busca_vertice( lista, identificador);
 		if (teste != NULL)
 			printf("\tValor encontrado: %d \n", teste -> V );
+		*/
+		// printf("b");
+		listaLog = insereLog(listaLog, tempo, identificador, operacao, atributo);
 	}
+	
 	return 0;
 }
