@@ -10,23 +10,37 @@ VertexList *adiciona_lista_vertices(Vertex *v){
 /**
  * Adiciona um vértice na lista que contém os vértices (transações) atuais
  * -Desconsidera arcos
+ * @param list 			A lista de vertices do grafo
+ * @param vertex_key 	A 'chave' do vértice que será criado
+ * @retval A lista de vertices ajustada ou NULL caso nao seja possivel cria-la
 */
-void adiciona_vertice(Graph *g, int vertex_key){
-    if(g == NULL){
-        imprimeErro("O grafo passado para a função adiciona_vertice é nulo");
+VertexList *adiciona_vertice(VertexList *list, int vertex_key){
+    if(list == NULL){
+		list = cria_nodo_lista(vertex_key);
+		return list;
     }
+	// retorna caso 
+	VertexList *iterator = list;
+	if (iterator -> vertice -> V == vertex_key){
+		return list;
+	}
+	
+	while(iterator -> next != NULL){
+		// retorna caso o valor ja exista
+		if (iterator -> vertice -> V == vertex_key)
+			return list;
+		iterator = iterator -> next;
+	}
+	
+	// adiciona novo nodo na lista 
+	VertexList *aux = cria_nodo_lista(vertex_key);
+	if (aux == NULL){
+		imprimeErro("Erro ao criar nodo na lista de vertices");
+		return NULL;
+	}
+	iterator -> next = aux;
+	
 
-    Vertex *vertex = cria_vertice(vertex_key);
-
-    if(g->lista == NULL){
-        g->lista = adiciona_lista_vertices(vertex);
-    } else {
-        VertexList *iterator = g->lista;
-        while(iterator->next != NULL){
-            iterator = iterator->next;
-        }
-        iterator->next = adiciona_lista_vertices(vertex);
-    }
 }
 
 /**
@@ -44,6 +58,19 @@ Vertex *cria_vertice(int vertex){
     return aux;
 }
 
+VertexList *cria_nodo_lista(int vertex){
+	VertexList *aux = (VertexList*) malloc(sizeof(VertexList));
+	if (aux == NULL)
+		return NULL;
+	aux -> vertice = cria_vertice(vertex);
+	if (aux -> vertice == NULL)
+		return NULL;
+	aux -> next = NULL;
+
+	return aux;
+}
+
+
 /**
  * Inicia a lista de vértices adjascentes a um vértice
 */
@@ -59,26 +86,28 @@ void inicia_adj(Vertex *grafo){
 
 // busca_vertice(int chave) se retornar NULL cria_vertice(); senão, retorna o vertice
 // indice do "alvo"
-Vertex *busca_vertice(Graph *g, int chave){
-    if (g == NULL){
+Vertex *busca_vertice(VertexList *list, int chave){
+    if (list == NULL){
         imprimeErro("Um grafo não existente foi passado para a função busca_vertice");
     }
-    VertexList *iterator = g->lista;
+    
+	VertexList *iterator = list;
     while(iterator != NULL){
-        if(iterator->vertice->V == chave){
-            return iterator->vertice;
-        }
-        iterator = iterator->next;
+		if (iterator -> vertice -> V == chave)
+			return iterator -> vertice;
+        iterator = iterator -> next;
     }
-    /*Não encontrou o vértice*/
-    fprintf(stderr, "Vértice não foi encontrado na função busca_vertice");
+	
+    
+	/*Não encontrou o vértice*/
+    fprintf(stderr, "\tVértice não foi encontrado na função busca_vertice\n");
     return NULL;
 }
 
 
 // verifica_ciclo
 
-// Vertex *busca_grafo(){
+// Vertex *busca_ciclo(){
 
 // }
 

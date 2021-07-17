@@ -1,9 +1,14 @@
+/**
+*	@file 	graph.h
+*	@brief	Biblioteca de graph.c
+*/
 #ifndef __GRAPH__
 #define __GRAPH__
 #include <stdio.h>
 #include <stdlib.h>
 #include "erro.h"
 #include <stdbool.h>
+
 typedef struct ListaAdj{
     struct Vertex *destino;
     struct ListaAdj *next;
@@ -37,15 +42,30 @@ typedef struct Graph{
     struct VertexList *lista;
 } Graph;
 
+/**
+ * Adiciona um vértice na lista que contém os vértices (transações) atuais de valor NULL
+ * -Desconsidera arcos
+*/
 Graph *inicia_grafo();
-
-VertexList *adiciona_lista_vertices(Vertex *v);
 
 /**
  * Adiciona um vértice na lista que contém os vértices (transações) atuais
  * -Desconsidera arcos
 */
-void adiciona_vertice(Graph *g, int vertex_key);
+VertexList *cria_nodo_lista(int);
+
+
+/**
+ * Adiciona um vértice na lista que contém os vértices (transações) atuais
+ * -Desconsidera arcos
+*/
+VertexList *adiciona_vertice(VertexList *list, int vertex_key);
+
+/**
+
+*/
+int imprimeErro ( char* erro );
+
 
 /**
  * Criar uma unidade da estrutura de dados que representa um vértice
@@ -64,7 +84,7 @@ void inicia_adj(Vertex *grafo);
 
 // busca_vertice(int chave) se retornar NULL cria_vertice(); senão, retorna o vertice
 // indice do "alvo"
-Vertex *busca_vertice(Graph *g, int chave);
+Vertex *busca_vertice(VertexList *list, int chave);
 
 
 // verifica_ciclo
@@ -88,5 +108,7 @@ bool verifica_ciclo(){
  * }
 */
 void criaArco(Vertex *origin, Vertex *destination);
+
+
 
 #endif
