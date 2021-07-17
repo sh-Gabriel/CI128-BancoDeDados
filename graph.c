@@ -1,5 +1,12 @@
 #include "graph.h"
 
+VertexList *adiciona_lista_vertices(Vertex *v){
+    VertexList *lista = (VertexList *)malloc(sizeof(VertexList));
+    lista->next = NULL;
+    lista->vertice = v;
+    return lista;
+}
+
 /**
  * Adiciona um vértice na lista que contém os vértices (transações) atuais
  * -Desconsidera arcos

@@ -1,8 +1,8 @@
 #ifndef __GRAPH__
-#define __GRAPH__"
+#define __GRAPH__
 #include <stdio.h>
 #include <stdlib.h>
-#include "erro.c"
+#include "erro.h"
 #include <stdbool.h>
 typedef struct ListaAdj{
     struct Vertex *destino;
@@ -68,6 +68,10 @@ Vertex *busca_vertice(Graph *g, int chave);
 
 
 // verifica_ciclo
+
+bool verifica_ciclo(){
+    
+}
 
 // Vertex *busca_grafo(){
 

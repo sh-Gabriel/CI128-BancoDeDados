@@ -1,6 +1,6 @@
-#include <stdio.h>
+#include "erro.h"
 
-int imprimeErro ( char* erro ) {
+void imprimeErro ( char* erro ) {
   fprintf (stderr, "Houve um erro: %s\n", erro);
   exit(-1);
 }
