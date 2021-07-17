@@ -5,9 +5,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "graph.h"
 // #include "Sistemas_Lineares.h"
 // #include "utils.h"
-
 
 
 /**
@@ -19,19 +19,24 @@
  * @retval	0		Caso o programa seja executado corretamente
  * @retval	-1		Caso seja encontrado um erro durante a execução do programa
  */
-int main(int argc, char *argv[])
-{	 
+int main(int argc, char *argv[]){	 
 	char line[1024];
+	VertexList *lista = NULL;
+
 	while (fgets(line, 1024, stdin)){
 		
-		// a cada iteração de ptr, este "pega" uma substring de cada linha
-		char *ptr = strtok(line, " ");
-		while(ptr != NULL)
-		{
-			printf("%s ", ptr);
-			ptr = strtok(NULL, " ");
-		}
-		printf("\n");
+		// a cada iteração separa o atributo de de cada linha
+		int tempo = atoi(strtok(line, " "));
+		int identificador = atoi(strtok(NULL, " "));
+		char operacao = strtok(NULL, " ")[0];
+		char atributo = strtok(NULL, " ")[0];
+
+		printf("Adicionando valor %d: \n", identificador);
+		lista = adiciona_vertice( lista, identificador);
+		printf("Buscando valor %d: \n", identificador);
+		Vertex *teste = busca_vertice( lista, identificador);
+		if (teste != NULL)
+			printf("\tValor encontrado: %d \n", teste -> V );
 	}
 	return 0;
 }
