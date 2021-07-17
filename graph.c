@@ -31,7 +31,6 @@ VertexList *adiciona_vertice(VertexList *list, int vertex_key){
 			return list;
 		iterator = iterator -> next;
 	}
-	
 	// adiciona novo nodo na lista 
 	VertexList *aux = cria_nodo_lista(vertex_key);
 	if (aux == NULL){
@@ -39,10 +38,8 @@ VertexList *adiciona_vertice(VertexList *list, int vertex_key){
 		return NULL;
 	}
 	iterator -> next = aux;
-	
-
+    return list;
 }
-
 /**
  * Criar uma unidade da estrutura de dados que representa um vértice
  * @param vertex A 'chave' do vértice que será criado
@@ -104,13 +101,6 @@ Vertex *busca_vertice(VertexList *list, int chave){
     return NULL;
 }
 
-
-// verifica_ciclo
-
-// Vertex *busca_ciclo(){
-
-// }
-
 /**
  * Função para adicionar uma Arco a um vértice existente
  * 
@@ -137,4 +127,48 @@ void criaArco(Vertex *origin, Vertex *destination){
 
     origin->adj->tail->destino = destination;
     origin->adj->tail->next = NULL;
+}
+
+bool itera_vizinhos(ListaAdj *adj){
+    if(adj == NULL){
+        imprimeErro("Não há uma vizinhança para ser percorrida na função itera_vizinhos");
+    }
+    ListaAdj *iter = adj;
+    while(iter != NULL){
+        if(adj->destino->visitado == 1){
+            //Existe ciclo
+            return true;
+        }
+        if(adj->destino->visitado == 2){
+            //O vértice foi visitado e não teve ciclo
+            return false;
+        }
+        adj->destino->visitado++;
+        itera_vizinhos(adj->destino->adj->head);
+        adj->destino->visitado++;
+        iter = iter->next;
+    }
+    return false;
+}
+/**
+ * Função que verifica a existência de um ciclo em um grafo
+ * @param list A lista de vértices (transações) existentes
+ * @retval True para a existência de ciclo e False caso contrário
+*/
+bool verifica_ciclo(VertexList *list){
+    VertexList *iterator = list;
+    //iterando pela lista de vértices que temos
+    while(iterator != NULL){
+        //Se o vértice não foi visitado
+        if(iterator->vertice->visitado == 0){
+            //Se o vértice tem vizinhança
+            if(iterator->vertice->adj != NULL && iterator->vertice->adj->head != NULL){
+                if (itera_vizinhos(iterator->vertice->adj->head)){
+                    return true;
+                }
+            }
+        }
+        iterator = iterator->next;
+    }
+    return false;
 }

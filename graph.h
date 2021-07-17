@@ -6,8 +6,8 @@
 #define __GRAPH__
 #include <stdio.h>
 #include <stdlib.h>
-#include "erro.h"
 #include <stdbool.h>
+#include "erro.h"
 
 typedef struct ListaAdj{
     struct Vertex *destino;
@@ -62,12 +62,6 @@ VertexList *cria_nodo_lista(int);
 VertexList *adiciona_vertice(VertexList *list, int vertex_key);
 
 /**
-
-*/
-int imprimeErro ( char* erro );
-
-
-/**
  * Criar uma unidade da estrutura de dados que representa um vértice
  * @param vertex A 'chave' do vértice que será criado
  * @retval A estrutura criada e ajustada
@@ -87,12 +81,6 @@ void inicia_adj(Vertex *grafo);
 Vertex *busca_vertice(VertexList *list, int chave);
 
 
-// verifica_ciclo
-
-bool verifica_ciclo(){
-    
-}
-
 // Vertex *busca_grafo(){
 
 // }
@@ -109,6 +97,6 @@ bool verifica_ciclo(){
 */
 void criaArco(Vertex *origin, Vertex *destination);
 
-
+bool itera_vizinhos(ListaAdj *adj);
 
 #endif
