@@ -13,11 +13,6 @@ typedef struct ListaAdj{
     struct Vertex *destino;
     struct ListaAdj *next;
 } ListaAdj;
-//Lista de adjascentes de um vértice
-typedef struct Adjascentes{
-    struct ListaAdj *head;
-    struct ListaAdj *tail;
-} Adjascentes;
 
 // T1 T2
 // Vertice *T1 = inicia_grafo(1);
@@ -28,7 +23,7 @@ typedef struct Vertex{
     int V;
     int visitado;
     bool commitado;
-    struct Adjascentes *adj;
+    struct ListaAdj *adj;
     
 } Vertex;
 
@@ -71,7 +66,7 @@ Vertex *cria_vertice(int vertex);
 /**
  * Inicia a lista de vértices adjascentes a um vértice
 */
-void inicia_adj(Vertex *grafo);
+ListaAdj *inicia_adj(Vertex *destino);
 
 // funcao_commit em algum lugar aí 
 
@@ -97,6 +92,6 @@ Vertex *busca_vertice(VertexList *list, int chave);
 */
 void criaArco(Vertex *origin, Vertex *destination);
 
-bool itera_vizinhos(ListaAdj *adj);
+bool itera_adjascentes(ListaAdj *adj);
 
 #endif

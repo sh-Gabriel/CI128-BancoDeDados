@@ -71,11 +71,11 @@ VertexList *cria_nodo_lista(int vertex){
 /**
  * Inicia a lista de vértices adjascentes a um vértice
 */
-void inicia_adj(Vertex *grafo){
-    grafo->adj = (Adjascentes*) malloc(sizeof(Adjascentes));
-    grafo->adj->head = (ListaAdj*) malloc(sizeof(ListaAdj));
-    grafo->adj->head->next = NULL;
-    grafo->adj->tail = grafo->adj->head;
+ListaAdj *inicia_adj(Vertex *destino){
+    ListaAdj *novo = (ListaAdj*) malloc(sizeof(ListaAdj));
+    novo->destino = destino;
+    novo->next = NULL;
+    return novo;
 }
 
 // funcao_commit em algum lugar aí 
@@ -118,21 +118,23 @@ void criaArco(Vertex *origin, Vertex *destination){
     /*o grafo não tem Arcos*/
     if(origin->adj == NULL){
         /*inicia a lista de Arcos dele*/
-        inicia_adj(origin);
+        inicia_adj(destination);
     } else {
-        /*O grafo tem Arcos*/
-        origin->adj->tail->next = (ListaAdj *)malloc(sizeof(ListaAdj));
-        origin->adj->tail = origin->adj->tail->next;
+        ListaAdj *iter = origin->adj;
+        while(iter->next != NULL){
+            iter = iter->next;
+        }
+        iter->next = malloc(sizeof(ListaAdj));
+        iter->next->destino = destination;
+        iter->next->next = NULL;
     }
-
-    origin->adj->tail->destino = destination;
-    origin->adj->tail->next = NULL;
 }
 
-bool itera_vizinhos(ListaAdj *adj){
+bool itera_adjascentes(ListaAdj *adj){
     if(adj == NULL){
         imprimeErro("Não há uma vizinhança para ser percorrida na função itera_vizinhos");
     }
+    bool result = false;
     ListaAdj *iter = adj;
     while(iter != NULL){
         if(adj->destino->visitado == 1){
@@ -144,11 +146,11 @@ bool itera_vizinhos(ListaAdj *adj){
             return false;
         }
         adj->destino->visitado++;
-        itera_vizinhos(adj->destino->adj->head);
+        result = itera_adjascentes(adj->destino->adj);
         adj->destino->visitado++;
         iter = iter->next;
     }
-    return false;
+    return result;
 }
 /**
  * Função que verifica a existência de um ciclo em um grafo
@@ -162,8 +164,8 @@ bool verifica_ciclo(VertexList *list){
         //Se o vértice não foi visitado
         if(iterator->vertice->visitado == 0){
             //Se o vértice tem vizinhança
-            if(iterator->vertice->adj != NULL && iterator->vertice->adj->head != NULL){
-                if (itera_vizinhos(iterator->vertice->adj->head)){
+            if(iterator->vertice->adj != NULL && iterator->vertice->adj != NULL){
+                if (itera_adjascentes(iterator->vertice->adj)){
                     return true;
                 }
             }
