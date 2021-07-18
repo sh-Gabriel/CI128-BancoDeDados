@@ -121,7 +121,7 @@ int buscaConflito(ListaLog *lista){
 void imprimeLogs(ListaLog *lista, FILE *f){
 	Log *aux = lista -> head;
 
-	fprintf(f, "Log:\n", aux -> tempo, aux -> id, aux -> operacao, aux -> atributo);
+	fprintf(f, "Log:\n");
 	while(aux != NULL){
 		fprintf(f, "%d %d %c %c \n", aux -> tempo, aux -> id, aux -> operacao, aux -> atributo);
 		aux = aux -> next;

@@ -7,6 +7,7 @@
 #include <string.h>
 #include "log.h"
 #include "erro.h"
+#include "graph.h"
 
 
 /**
@@ -21,7 +22,9 @@
 int main(int argc, char *argv[]){	 
 	char line[1024];
 	// VertexList *lista = NULL;
-	ListaLog *listaLog = NULL;
+	ListaLog *logs = NULL;
+
+	VertexList *lista = NULL;
 
 	FILE *f = fopen("logs", "w");
 	if (f == NULL)
@@ -44,17 +47,17 @@ int main(int argc, char *argv[]){
 			printf("\tValor encontrado: %d \n", teste -> V );
 		*/
 		// printf("b");
-		listaLog = insereLog(listaLog, tempo, identificador, operacao, atributo);
-		int testeConflito = buscaConflito(listaLog);
+		logs = insereLog(logs, tempo, identificador, operacao, atributo);
+		int testeConflito = buscaConflito(logs);
 		if (testeConflito == -1)
 			printf("Nao possui conflitos \n");
 		else
-			printf("%d tem conflito com %d \n", listaLog -> tail -> id, testeConflito);
+			printf("%d tem conflito com %d \n", logs -> tail -> id, testeConflito);
 		if (operacao == 'C')
-			imprimeLogs( listaLog, f);
+			imprimeLogs( logs, f);
 
 	}
-	
+
 	Vertex *a1 = busca_vertice(lista, 1);
 	Vertex *a2 = busca_vertice(lista, 2);
 	Vertex *a3 = busca_vertice(lista, 3);
@@ -65,7 +68,7 @@ int main(int argc, char *argv[]){
 	criaArco(a3, a1);
 	criaArco(a2, a1);
 	// printf("O destino do arco %d\n", a2->adj->destino->V);
-	int a = verifica_ciclo(lista);
+	bool a = verifica_ciclo(lista);
 	printf("O result?? %d\n", a);
 
 	
