@@ -38,5 +38,17 @@ int main(int argc, char *argv[]){
 		if (teste != NULL)
 			printf("\tValor encontrado: %d \n", teste -> V );
 	}
+	Vertex *a1 = busca_vertice(lista, 1);
+	Vertex *a2 = busca_vertice(lista, 2);
+	Vertex *a3 = busca_vertice(lista, 3);
+	Vertex *a4 = busca_vertice(lista, 4);
+	criaArco(a1, a2);
+	criaArco(a3, a4);
+	criaArco(a2, a3);
+	criaArco(a3, a1);
+	criaArco(a2, a1);
+	// printf("O destino do arco %d\n", a2->adj->destino->V);
+	int a = verifica_ciclo(lista);
+	printf("O result?? %d\n", a);
 	return 0;
 }

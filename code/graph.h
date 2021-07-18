@@ -47,7 +47,7 @@ Graph *inicia_grafo();
  * Adiciona um vértice na lista que contém os vértices (transações) atuais
  * -Desconsidera arcos
 */
-VertexList *cria_nodo_lista(int);
+VertexList *inicia_lista_vertice(int);
 
 
 /**
@@ -66,7 +66,7 @@ Vertex *cria_vertice(int vertex);
 /**
  * Inicia a lista de vértices adjascentes a um vértice
 */
-ListaAdj *inicia_adj(Vertex *destino);
+void inicia_adj(Vertex *origem, Vertex *destino);
 
 // funcao_commit em algum lugar aí 
 
@@ -92,6 +92,6 @@ Vertex *busca_vertice(VertexList *list, int chave);
 */
 void criaArco(Vertex *origin, Vertex *destination);
 
-bool itera_adjascentes(ListaAdj *adj);
+bool itera_adjascentes(Vertex *v);
 
 #endif

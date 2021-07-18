@@ -1,5 +1,10 @@
 #include "graph.h"
-
+/**
+ * Inicializa uma lista de vértices que conterá todos os vértices criados,
+ * e não leva em consideração a vizinhança deles.
+ * @param v O primeiro vértice que a lista irá conter.
+ * @retval A lista inicializada.
+ */
 VertexList *adiciona_lista_vertices(Vertex *v){
     VertexList *lista = (VertexList *)malloc(sizeof(VertexList));
     lista->next = NULL;
@@ -16,7 +21,7 @@ VertexList *adiciona_lista_vertices(Vertex *v){
 */
 VertexList *adiciona_vertice(VertexList *list, int vertex_key){
     if(list == NULL){
-		list = cria_nodo_lista(vertex_key);
+		list = inicia_lista_vertice(vertex_key);
 		return list;
     }
 	// retorna caso 
@@ -32,7 +37,7 @@ VertexList *adiciona_vertice(VertexList *list, int vertex_key){
 		iterator = iterator -> next;
 	}
 	// adiciona novo nodo na lista 
-	VertexList *aux = cria_nodo_lista(vertex_key);
+	VertexList *aux = inicia_lista_vertice(vertex_key);
 	if (aux == NULL){
 		imprimeErro("Erro ao criar nodo na lista de vertices");
 		return NULL;
@@ -55,7 +60,12 @@ Vertex *cria_vertice(int vertex){
     return aux;
 }
 
-VertexList *cria_nodo_lista(int vertex){
+/**
+ * Inicia a lista de vértices com um recém criado.
+ * @param vertex A chave do vértice a ser criado.
+ * @retval O ponteiro para a lista.
+ */
+VertexList *inicia_lista_vertice(int vertex){
 	VertexList *aux = (VertexList*) malloc(sizeof(VertexList));
 	if (aux == NULL)
 		return NULL;
@@ -69,20 +79,22 @@ VertexList *cria_nodo_lista(int vertex){
 
 
 /**
- * Inicia a lista de vértices adjascentes a um vértice
+ * Inicia a lista de vértices adjascentes de um vértice.
+ * @param origem O vértice que terá sua lista iniciada.
+ * @param destino O vértice que pertence à lista de adjascentes recém-criada.
 */
-ListaAdj *inicia_adj(Vertex *destino){
-    ListaAdj *novo = (ListaAdj*) malloc(sizeof(ListaAdj));
-    novo->destino = destino;
-    novo->next = NULL;
-    return novo;
+void inicia_adj(Vertex *origem, Vertex *destino){
+    origem->adj = (ListaAdj*) malloc(sizeof(ListaAdj));
+    origem->adj->destino = destino;
+    origem->adj->next = NULL;
 }
 
-// funcao_commit em algum lugar aí 
-
-
-// busca_vertice(int chave) se retornar NULL cria_vertice(); senão, retorna o vertice
-// indice do "alvo"
+/**
+ * Função que dado uma lista de vértices retorna aquele que contém a chave requerida.
+ * @param list A lista de vértives existentes.
+ * @param chave O valor do vértice buscado.
+ * @retval A estrutura de dados abstrata contendo o vértice encontrado, NULL caso contrário.
+ */
 Vertex *busca_vertice(VertexList *list, int chave){
     if (list == NULL){
         imprimeErro("Um grafo não existente foi passado para a função busca_vertice");
@@ -104,8 +116,8 @@ Vertex *busca_vertice(VertexList *list, int chave){
 /**
  * Função para adicionar uma Arco a um vértice existente
  * 
- * @param origin    O grafo de origem da Arco
- * @param destination O 'alvo'
+ * @param origin    O grafo de origem da Arco.
+ * @param destination O 'alvo'.
  * 
  * if(condições){
  *  criaArco(Ti, j);
@@ -118,38 +130,50 @@ void criaArco(Vertex *origin, Vertex *destination){
     /*o grafo não tem Arcos*/
     if(origin->adj == NULL){
         /*inicia a lista de Arcos dele*/
-        inicia_adj(destination);
+        inicia_adj(origin, destination);
+        printf("Algo %p\n", origin->adj->destino);
     } else {
         ListaAdj *iter = origin->adj;
         while(iter->next != NULL){
             iter = iter->next;
         }
-        iter->next = malloc(sizeof(ListaAdj));
-        iter->next->destino = destination;
+        iter->next = (ListaAdj *)malloc(sizeof(ListaAdj));
         iter->next->next = NULL;
+        iter->next->destino = destination;
     }
 }
-
-bool itera_adjascentes(ListaAdj *adj){
-    if(adj == NULL){
+/**
+ * Função que, dado um vértice, itera por sua vizinhança.
+ * @param v O vértice, em questão, a ser explorado.
+ * @retval True para a existência de ciclo e False caso o contrário.
+*/
+bool itera_adjascentes(Vertex *v){
+    printf("Entrou %p, visitado %d\n", v, v->visitado);
+    if(v == NULL){
+        printf("Sem vizinhança\n");
+        return false;
         imprimeErro("Não há uma vizinhança para ser percorrida na função itera_vizinhos");
     }
     bool result = false;
-    ListaAdj *iter = adj;
-    while(iter != NULL){
-        if(adj->destino->visitado == 1){
-            //Existe ciclo
-            return true;
-        }
-        if(adj->destino->visitado == 2){
-            //O vértice foi visitado e não teve ciclo
-            return false;
-        }
-        adj->destino->visitado++;
-        result = itera_adjascentes(adj->destino->adj);
-        adj->destino->visitado++;
+    if(v->visitado == 1){
+        printf("%d o destino antes do return \n", v->V);
+        //Existe ciclo
+        return true;
+    }
+    if(v->visitado == 2){
+        printf("Retornou falso??\n");
+        //O vértice foi visitado e não teve ciclo
+        return false;
+    }
+    v->visitado++;
+    ListaAdj *iter = v->adj;
+    while(iter != NULL && !result){
+        printf("A chave de iter %d %d\n", iter->destino->V, iter->destino->visitado);
+        result = itera_adjascentes(iter->destino);
+        printf("Depois\n");
         iter = iter->next;
     }
+    v->visitado++;
     return result;
 }
 /**
@@ -164,8 +188,9 @@ bool verifica_ciclo(VertexList *list){
         //Se o vértice não foi visitado
         if(iterator->vertice->visitado == 0){
             //Se o vértice tem vizinhança
-            if(iterator->vertice->adj != NULL && iterator->vertice->adj != NULL){
-                if (itera_adjascentes(iterator->vertice->adj)){
+            if(iterator->vertice->adj != NULL){
+                printf("A vizinhança é de %d\n", iterator->vertice->V);
+                if (itera_adjascentes(iterator->vertice)){
                     return true;
                 }
             }
