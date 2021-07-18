@@ -40,6 +40,12 @@ int main(int argc, char *argv[]){
 		*/
 		// printf("b");
 		listaLog = insereLog(listaLog, tempo, identificador, operacao, atributo);
+		int testeConflito = buscaConflito(listaLog);
+		if (testeConflito == -1)
+			printf("Nao possui conflitos \n");
+		else
+			printf("%d tem conflito com %d \n", listaLog -> tail -> id, testeConflito);
+
 	}
 	
 	return 0;

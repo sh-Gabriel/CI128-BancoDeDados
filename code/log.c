@@ -19,7 +19,7 @@ ListaLog *criaListaLog(void){
 
 	return aux;
 }
-// insere baseado no tempo
+
 ListaLog *insereLog(ListaLog *lista, int time, int identificador, char op, char tribute){
 
 	// log que sera inserido na lista:
@@ -67,9 +67,6 @@ ListaLog *insereLog(ListaLog *lista, int time, int identificador, char op, char 
 	return lista;
 }
 
-
-
-
 Log *criaLog(int time, int identificador, char op, char tribute){
 	Log *aux = (Log*) malloc(sizeof(Log));
 	if (aux == NULL)
@@ -101,5 +98,22 @@ void percorreLogAnterior(ListaLog *lista){
 	}
 }
 
-// #include "Sistemas_Lineares.h"
-// #include "utils.h"
+int buscaConflito(ListaLog *lista){
+	Log *lastLog = lista -> tail;
+	Log *iterator = lista -> tail -> prev;
+
+	while (iterator != NULL){
+		// seleciona operacoes no mesmo atributo em vertices diferentes
+		if (iterator -> atributo == lastLog -> atributo && iterator -> id != lastLog -> id){
+			// se o ultimo for read
+			if (lastLog -> operacao == 'W')
+				return (iterator -> id);
+			if (lastLog -> operacao == 'R' && iterator -> operacao == 'W')
+				return (iterator -> id);
+		}
+		iterator = iterator -> prev;
+	}
+
+	// caso nao encontre conflito
+	return -1;
+}
