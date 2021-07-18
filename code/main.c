@@ -5,9 +5,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "graph.h"
-// #include "Sistemas_Lineares.h"
-// #include "utils.h"
+#include "log.h"
+#include "erro.h"
 
 
 /**
@@ -21,7 +20,13 @@
  */
 int main(int argc, char *argv[]){	 
 	char line[1024];
-	VertexList *lista = NULL;
+	// VertexList *lista = NULL;
+	ListaLog *listaLog = NULL;
+
+	FILE *f = fopen("logs", "w");
+	if (f == NULL)
+		imprimeErro("Erro ao criar arquivo\n");
+	
 
 	while (fgets(line, 1024, stdin)){
 		
@@ -30,14 +35,26 @@ int main(int argc, char *argv[]){
 		int identificador = atoi(strtok(NULL, " "));
 		char operacao = strtok(NULL, " ")[0];
 		char atributo = strtok(NULL, " ")[0];
-
+		/*
 		printf("Adicionando valor %d: \n", identificador);
 		lista = adiciona_vertice( lista, identificador);
 		printf("Buscando valor %d: \n", identificador);
 		Vertex *teste = busca_vertice( lista, identificador);
 		if (teste != NULL)
 			printf("\tValor encontrado: %d \n", teste -> V );
+		*/
+		// printf("b");
+		listaLog = insereLog(listaLog, tempo, identificador, operacao, atributo);
+		int testeConflito = buscaConflito(listaLog);
+		if (testeConflito == -1)
+			printf("Nao possui conflitos \n");
+		else
+			printf("%d tem conflito com %d \n", listaLog -> tail -> id, testeConflito);
+		if (operacao == 'C')
+			imprimeLogs( listaLog, f);
+
 	}
+	
 	Vertex *a1 = busca_vertice(lista, 1);
 	Vertex *a2 = busca_vertice(lista, 2);
 	Vertex *a3 = busca_vertice(lista, 3);
@@ -50,5 +67,8 @@ int main(int argc, char *argv[]){
 	// printf("O destino do arco %d\n", a2->adj->destino->V);
 	int a = verifica_ciclo(lista);
 	printf("O result?? %d\n", a);
+
+	
+	fclose(f);
 	return 0;
 }
