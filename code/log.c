@@ -117,3 +117,14 @@ int buscaConflito(ListaLog *lista){
 	// caso nao encontre conflito
 	return -1;
 }
+
+void imprimeLogs(ListaLog *lista, FILE *f){
+	Log *aux = lista -> head;
+
+	fprintf(f, "Log:\n", aux -> tempo, aux -> id, aux -> operacao, aux -> atributo);
+	while(aux != NULL){
+		fprintf(f, "%d %d %c %c \n", aux -> tempo, aux -> id, aux -> operacao, aux -> atributo);
+		aux = aux -> next;
+	}
+
+}

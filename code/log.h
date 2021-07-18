@@ -71,6 +71,7 @@ Log *criaLog(int time, int identificador, char op, char tribute);
  * @param lista 
  */
 void percorreLogProximo(ListaLog *lista);
+
 /**
  * @brief Debug
  * 
@@ -86,5 +87,7 @@ void percorreLogAnterior(ListaLog *lista);
  * @return int Caso encontre um conflito, retona o valor do vertice conflitante. Caso contrario, retorna -1.
  */
 int buscaConflito(ListaLog *lista);
+
+void imprimeLogs(ListaLog *lista, FILE *f);
 
 #endif

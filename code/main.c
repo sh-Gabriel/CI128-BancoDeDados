@@ -23,6 +23,11 @@ int main(int argc, char *argv[]){
 	// VertexList *lista = NULL;
 	ListaLog *listaLog = NULL;
 
+	FILE *f = fopen("logs", "w");
+	if (f == NULL)
+		imprimeErro("Erro ao criar arquivo\n");
+	
+
 	while (fgets(line, 1024, stdin)){
 		
 		// a cada iteração separa o atributo de de cada linha
@@ -45,8 +50,11 @@ int main(int argc, char *argv[]){
 			printf("Nao possui conflitos \n");
 		else
 			printf("%d tem conflito com %d \n", listaLog -> tail -> id, testeConflito);
+		if (operacao == 'C')
+			imprimeLogs( listaLog, f);
 
 	}
 	
+	fclose(f);
 	return 0;
 }
