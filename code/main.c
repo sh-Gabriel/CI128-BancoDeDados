@@ -38,25 +38,34 @@ int main(int argc, char *argv[]){
 		int identificador = atoi(strtok(NULL, " "));
 		char operacao = strtok(NULL, " ")[0];
 		char atributo = strtok(NULL, " ")[0];
-		/*
-		printf("Adicionando valor %d: \n", identificador);
+
+		// printf("Adicionando valor %d: \n", identificador);
 		lista = adiciona_vertice( lista, identificador);
-		printf("Buscando valor %d: \n", identificador);
+		// printf("Buscando valor %d: \n", identificador);
 		Vertex *teste = busca_vertice( lista, identificador);
 		if (teste != NULL)
 			printf("\tValor encontrado: %d \n", teste -> V );
-		*/
 		// printf("b");
+		printf("Lista %p\n", logs);
+		
 		if (operacao != 'C'){
+			//TODO se for o caso, fazer aqui a verificação para reiniciar o log e os vértices
 			logs = insereLog(logs, tempo, identificador, operacao, atributo);
 			int testeConflito = buscaConflito(logs);
 			if (testeConflito == -1)
 				printf("Nao possui conflitos \n");
-			else
+			else{
 				printf("%d tem conflito com %d \n", logs -> tail -> id, testeConflito);
+				criaArco(busca_vertice(lista, testeConflito), busca_vertice(lista, logs->tail->id));
+			}
 		} else{
 			imprimeLogs( logs, f);
-			printf("commit \n\n");
+			bool ehCiclico = verifica_ciclo(lista);
+			printf("commit %s\n\n", ehCiclico?"true":"false");
+
+			// !Posteriormente criar rotinas pra dar free nos ponteiros
+			logs = NULL;
+			lista = NULL;
 		}
 
 	}

@@ -119,6 +119,9 @@ int buscaConflito(ListaLog *lista){
 }
 
 void imprimeLogs(ListaLog *lista, FILE *f){
+	//* perde a lista de logs depois do 1o print (1a leitura de commit)
+	if (lista == NULL)
+		return;
 	Log *aux = lista -> head;
 
 	fprintf(f, "Log:\n");
