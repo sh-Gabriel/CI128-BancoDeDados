@@ -14,5 +14,5 @@ graph.o: graph.c erro.o
 	gcc -c graph.c -Wall
 
 clean:
-	rm -rf *.o escalona
+	rm -rf *.o escalona logs
 	clear

@@ -47,29 +47,32 @@ int main(int argc, char *argv[]){
 			printf("\tValor encontrado: %d \n", teste -> V );
 		*/
 		// printf("b");
-		logs = insereLog(logs, tempo, identificador, operacao, atributo);
-		int testeConflito = buscaConflito(logs);
-		if (testeConflito == -1)
-			printf("Nao possui conflitos \n");
-		else
-			printf("%d tem conflito com %d \n", logs -> tail -> id, testeConflito);
-		if (operacao == 'C')
+		if (operacao != 'C'){
+			logs = insereLog(logs, tempo, identificador, operacao, atributo);
+			int testeConflito = buscaConflito(logs);
+			if (testeConflito == -1)
+				printf("Nao possui conflitos \n");
+			else
+				printf("%d tem conflito com %d \n", logs -> tail -> id, testeConflito);
+		} else{
 			imprimeLogs( logs, f);
+			printf("commit \n\n");
+		}
 
 	}
 
-	Vertex *a1 = busca_vertice(lista, 1);
-	Vertex *a2 = busca_vertice(lista, 2);
-	Vertex *a3 = busca_vertice(lista, 3);
-	Vertex *a4 = busca_vertice(lista, 4);
-	criaArco(a1, a2);
-	criaArco(a3, a4);
-	criaArco(a2, a3);
-	criaArco(a3, a1);
-	criaArco(a2, a1);
+	// Vertex *a1 = busca_vertice(lista, 1);
+	// Vertex *a2 = busca_vertice(lista, 2);
+	// Vertex *a3 = busca_vertice(lista, 3);
+	// Vertex *a4 = busca_vertice(lista, 4);
+	// criaArco(a1, a2);
+	// criaArco(a3, a4);
+	// criaArco(a2, a3);
+	// criaArco(a3, a1);
+	// criaArco(a2, a1);
 	// printf("O destino do arco %d\n", a2->adj->destino->V);
-	bool a = verifica_ciclo(lista);
-	printf("O result?? %d\n", a);
+	// bool a = verifica_ciclo(lista);
+	// printf("O result?? %d\n", a);
 
 	
 	fclose(f);

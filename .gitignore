@@ -1,0 +1,4 @@
+.vscode
+./code/*.o
+./code/logs
+./code/escalona
