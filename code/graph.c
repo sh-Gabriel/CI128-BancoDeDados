@@ -1,9 +1,10 @@
 #include "graph.h"
+
 /**
- * Inicializa uma lista de vértices que conterá todos os vértices criados,
- * e não leva em consideração a vizinhança deles.
- * @param v O primeiro vértice que a lista irá conter.
- * @retval A lista inicializada.
+ * @brief Adiciona um vértice na lista de vértices
+ * 
+ * @param lista A lista que será incrementada
+ * @param v A chave do vértice que será adicionado na lista
  */
 void adiciona_vertice_lista(VertexList *lista, int v){
     if (lista == NULL)
@@ -14,12 +15,12 @@ void adiciona_vertice_lista(VertexList *lista, int v){
 }
 
 /**
- * Adiciona um vértice na lista que contém os vértices (transações) atuais
- * -Desconsidera arcos
- * @param list 			A lista de vertices do grafo
- * @param vertex_key 	A 'chave' do vértice que será criado
- * @retval A lista de vertices ajustada ou NULL caso nao seja possivel cria-la
-*/
+ * @brief Faz as verificações para adicionar um vértice na lista que contém os vértices (transações) atuais
+ * 
+ * @param list A lista de vertices do grafo
+ * @param vertex_key A 'chave' do vértice que será criado
+ * @return VertexList* A lista de vertices ajustada ou NULL caso nao seja possivel cria-la
+ */
 VertexList *adiciona_vertice(VertexList *list, int vertex_key){
     if(list == NULL){
 		list = inicia_lista_vertice(vertex_key);
@@ -37,11 +38,13 @@ VertexList *adiciona_vertice(VertexList *list, int vertex_key){
 
     return list;
 }
+
 /**
- * Criar uma unidade da estrutura de dados que representa um vértice
- * @param vertex A 'chave' do vértice que será criado
- * @retval A estrutura criada e ajustada
-*/
+ * @brief Aloca memória para uma unidade da estrutura de dados que representa um vértice
+ * 
+ * @param vertex A chave do vértice que será criado
+ * @return Vertex* O ponteiro para a estrutura recém-alocada
+ */
 Vertex *cria_vertice(int vertex){
     Vertex *aux = (Vertex*) malloc(sizeof(Vertex));
     aux->V = vertex;
@@ -53,9 +56,10 @@ Vertex *cria_vertice(int vertex){
 }
 
 /**
- * Inicia a lista de vértices com um recém criado.
- * @param vertex A chave do vértice a ser criado.
- * @retval O ponteiro para a lista.
+ * @brief Inicia a lista de vértices, já contendo um vértice inserido nela
+ * 
+ * @param vertex A chave do vértice que será criado
+ * @return VertexList* O ponteiro referência para o começo da lista
  */
 VertexList *inicia_lista_vertice(int vertex){
 	VertexList *aux = (VertexList*) malloc(sizeof(VertexList));
@@ -69,12 +73,12 @@ VertexList *inicia_lista_vertice(int vertex){
 	return aux;
 }
 
-
 /**
- * Inicia a lista de vértices adjascentes de um vértice.
- * @param origem O vértice que terá sua lista iniciada.
- * @param destino O vértice que pertence à lista de adjascentes recém-criada.
-*/
+ * @brief Inicia a lista de vértices adjascentes de um vértice
+ * 
+ * @param origem O vértice que terá sua lista de adjascentes iniciada
+ * @param destino O vértice que fará parte da lista de adjascentes
+ */
 void inicia_adj(Vertex *origem, Vertex *destino){
     origem->adj = (ListaAdj*) malloc(sizeof(ListaAdj));
     origem->adj->destino = destino;
@@ -82,10 +86,11 @@ void inicia_adj(Vertex *origem, Vertex *destino){
 }
 
 /**
- * Função que dado uma lista de vértices retorna aquele que contém a chave requerida.
- * @param list A lista de vértives existentes.
- * @param chave O valor do vértice buscado.
- * @retval A estrutura de dados abstrata contendo o vértice encontrado, NULL caso contrário.
+ * @brief Dado uma lista de vértices, retorna aquele que contém a chave buscada
+ * 
+ * @param list A lista de vértices existente
+ * @param chave A chave do vértice a ser buscado
+ * @return Vertex* O vértice encontrado ou NULL, caso não o encontre
  */
 Vertex *busca_vertice(VertexList *list, int chave){
     if (list == NULL){
@@ -106,15 +111,11 @@ Vertex *busca_vertice(VertexList *list, int chave){
 }
 
 /**
- * Função para adicionar uma Arco a um vértice existente
+ * @brief Adiciona um arco entre dois vértices existentes
  * 
- * @param origin    O grafo de origem da Arco.
- * @param destination O 'alvo'.
- * 
- * if(condições){
- *  criaArco(Ti, j);
- * }
-*/
+ * @param origin O vértice de origem do arco
+ * @param destination O vértice de destino do arco
+ */
 void criaArco(Vertex *origin, Vertex *destination){
     if(origin == NULL){
         imprimeErro("O vértice de origem passado para a função criaArco é nulo.");
@@ -134,11 +135,14 @@ void criaArco(Vertex *origin, Vertex *destination){
         iter->next->destino = destination;
     }
 }
+
 /**
- * Função que, dado um vértice, itera por sua vizinhança.
- * @param v O vértice, em questão, a ser explorado.
- * @retval True para a existência de ciclo e False caso o contrário.
-*/
+ * @brief Dado um vértice, itera por sua vizinhança verificando a existência de ciclo
+ * 
+ * @param v O vértice cuja vizinhança será percorrida
+ * @return true Caso exista um ciclo
+ * @return false Caso contrário
+ */
 bool itera_adjascentes(Vertex *v){
     printf("Entrou %p, visitado %d\n", v, v->visitado);
     if(v == NULL){
@@ -168,11 +172,14 @@ bool itera_adjascentes(Vertex *v){
     v->visitado++;
     return result;
 }
+
 /**
- * Função que verifica a existência de um ciclo em um grafo
- * @param list A lista de vértices (transações) existentes
- * @retval True para a existência de ciclo e False caso contrário
-*/
+ * @brief Verifica a existência de um ciclo em um grafo
+ * 
+ * @param list A atual lista de vértices criados
+ * @return true Caso exista ciclo
+ * @return false Caso contrário
+ */
 bool verifica_ciclo(VertexList *list){
     VertexList *iterator = list;
     //iterando pela lista de vértices que temos
@@ -204,7 +211,6 @@ bool verifica_commit(VertexList *list){
         imprimeErro("Uma lista nula foi passada para a função verifica_commit");
     VertexList *iterator = list;
     while(iterator != NULL){
-        printf("\t\tO vértice da vez %d e seu commit %d\n", iterator->vertice->V, iterator->vertice->commitado);
         if (!iterator->vertice->commitado)
             return false;
         iterator = iterator->next;

@@ -44,7 +44,7 @@ int main(int argc, char *argv[]){
 		// printf("Buscando valor %d: \n", identificador);
 		Vertex *teste = busca_vertice( lista, identificador);
 		if (teste != NULL)
-			printf("\tValor encontrado: %d \n", teste -> V );
+		printf("\tValor encontrado: %d \n", teste -> V );
 		// printf("b");
 		printf("Lista %p\n", logs);
 		
@@ -62,13 +62,9 @@ int main(int argc, char *argv[]){
 			printf("\n\n");
 			commited = busca_vertice(lista, identificador);
 			commited->commitado = true;
-			printf("O vértice buscado %d, está com commit? %d\n", commited->V, commited->commitado);
-			printf("AAAAAAAAAA%d\n", verifica_commit(lista));
 			if(verifica_commit(lista)){
-				printf("\nO commit foi verificado!\n");
 				imprimeLogs( logs, f);
 				bool ehCiclico = verifica_ciclo(lista);
-				printf("commit %s\n\n", ehCiclico?"true":"false");
 
 				// !Posteriormente criar rotinas pra dar free nos ponteiros
 				logs = NULL;

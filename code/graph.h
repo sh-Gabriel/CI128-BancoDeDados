@@ -38,69 +38,91 @@ typedef struct Graph{
 } Graph;
 
 /**
- * Adiciona um vértice na lista que contém os vértices (transações) atuais de valor NULL
- * -Desconsidera arcos
-*/
-Graph *inicia_grafo();
-
-/**
- * Adiciona um vértice na lista que contém os vértices (transações) atuais
- * -Desconsidera arcos
-*/
+ * @brief Adiciona um vértice na lista de vértices
+ * 
+ * @param lista A lista que será incrementada
+ * @param v A chave do vértice que será adicionado na lista
+ */
 void adiciona_vertice_lista(VertexList *lista, int v);
 
-
 /**
- * Adiciona um vértice na lista que contém os vértices (transações) atuais
- * -Desconsidera arcos
-*/
+ * @brief Faz as verificações para adicionar um vértice na lista que contém os vértices (transações) atuais
+ * 
+ * @param list A lista de vertices do grafo
+ * @param vertex_key A 'chave' do vértice que será criado
+ * @return VertexList* A lista de vertices ajustada ou NULL caso nao seja possivel cria-la
+ */
 VertexList *adiciona_vertice(VertexList *list, int vertex_key);
 
 /**
- * Criar uma unidade da estrutura de dados que representa um vértice
- * @param vertex A 'chave' do vértice que será criado
- * @retval A estrutura criada e ajustada
-*/
+ * @brief Aloca memória para uma unidade da estrutura de dados que representa um vértice
+ * 
+ * @param vertex A chave do vértice que será criado
+ * @return Vertex* O ponteiro para a estrutura recém-alocada
+ */
 Vertex *cria_vertice(int vertex);
 
 /**
- * Inicia a lista de vértices com um recém criado.
- * @param vertex A chave do vértice a ser criado.
- * @retval O ponteiro para a lista.
+ * @brief Inicia a lista de vértices, já contendo um vértice inserido nela
+ * 
+ * @param vertex A chave do vértice que será criado
+ * @return VertexList* O ponteiro referência para o começo da lista
  */
 VertexList *inicia_lista_vertice(int vertex);
 
 /**
- * Inicia a lista de vértices adjascentes a um vértice
-*/
+ * @brief Inicia a lista de vértices adjascentes de um vértice
+ * 
+ * @param origem O vértice que terá sua lista de adjascentes iniciada
+ * @param destino O vértice que fará parte da lista de adjascentes
+ */
 void inicia_adj(Vertex *origem, Vertex *destino);
 
 // funcao_commit em algum lugar aí 
 
 
-// busca_vertice(int chave) se retornar NULL cria_vertice(); senão, retorna o vertice
-// indice do "alvo"
+/**
+ * @brief Dado uma lista de vértices, retorna aquele que contém a chave buscada
+ * 
+ * @param list A lista de vértices existente
+ * @param chave A chave do vértice a ser buscado
+ * @return Vertex* O vértice encontrado ou NULL, caso não o encontre
+ */
 Vertex *busca_vertice(VertexList *list, int chave);
 
-
-// Vertex *busca_grafo(){
-
-// }
-
 /**
- * Função para adicionar uma Arco a um vértice existente
+ * @brief Adiciona um arco entre dois vértices existentes
  * 
- * @param origin    O grafo de origem da Arco
- * @param destination O 'alvo'
- * 
- * if(condições){
- *  criaArco(Ti, j);
- * }
-*/
+ * @param origin O vértice de origem do arco
+ * @param destination O vértice de destino do arco
+ */
 void criaArco(Vertex *origin, Vertex *destination);
 
+/**
+ * @brief Dado um vértice, itera por sua vizinhança verificando a existência de ciclo
+ * 
+ * @param v O vértice cuja vizinhança será percorrida
+ * @return true Caso exista um ciclo
+ * @return false Caso contrário
+ */
 bool itera_adjascentes(Vertex *v);
 
+/**
+ * @brief Verifica a existência de um ciclo em um grafo
+ * 
+ * @param list A atual lista de vértices criados
+ * @return true Caso exista ciclo
+ * @return false Caso contrário
+ */
+bool verifica_ciclo(VertexList *list);
+
+/**
+ * @brief Percorre a lista de vértices verificando se todas as transações dos vértices já sofreram commit
+ * 
+ * @param list A lista de vértices existente no agendamento
+ * @return true Todos sofreram o commit
+ * @return false Algum ainda não sofreu o commit
+ */
 bool verifica_commit(VertexList *list);
 
 #endif
