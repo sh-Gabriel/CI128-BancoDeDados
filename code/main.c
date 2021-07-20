@@ -53,9 +53,7 @@ int main(int argc, char *argv[]){
 		// printf("Buscando valor %d: \n", identificador);
 		Vertex *teste = busca_vertice( lista, identificador);
 		if (teste != NULL)
-		printf("\tValor encontrado: %d \n", teste -> V );
 		// printf("b");
-		printf("Lista %p\n", logs);
 		percorreLogProximo(logs);
 		if (operacao != 'C'){
 			//TODO se for o caso, fazer aqui a verificação para reiniciar o log e os vértices
@@ -64,11 +62,9 @@ int main(int argc, char *argv[]){
 			if (testeConflito == -1)
 				printf("Nao possui conflitos \n");
 			else{
-				printf("%d tem conflito com %d \n", logs -> tail -> id, testeConflito);
 				criaArco(busca_vertice(lista, testeConflito), busca_vertice(lista, logs->tail->id));
 			}
 		} else {
-			printf("\n\n");
 			commited = busca_vertice(lista, identificador);
 			commited->commitado = true;
 			if(verifica_commit(lista)){
@@ -77,11 +73,8 @@ int main(int argc, char *argv[]){
 				isSerial = !verifica_ciclo(lista);
 				isEquivalent = false;
 				// TODO isEquivalent = visao_equivalente(...)
-				// !Posteriormente criar rotinas pra dar free nos ponteiros
 				print_output(lista, id_escalonamento, isSerial, isEquivalent, tamanho_lista(lista));
-				printf("%d\n", (int)sizeof(10000));
 				logs = finaliza_lista_log(logs);
-				// logs = NULL;
 				lista = finaliza_lista_vertices(lista);
 			}
 		}

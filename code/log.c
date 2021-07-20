@@ -54,7 +54,6 @@ ListaLog *insereLog(ListaLog *lista, int time, int identificador, char op, char 
 
 	// insere no meio
 	while (iterator -> next != NULL){
-		// printf("iterator: %d \n", iterator -> tempo);
 		if (time < iterator -> tempo){
 			iterator -> prev -> next = newLog;
 			newLog -> prev = iterator -> prev;
@@ -97,7 +96,6 @@ void percorreLogProximo(ListaLog *lista){
 		return;
 	Log *aux = lista -> head;
 	while (aux != NULL){
-		printf("%d \n", aux -> tempo);
 		aux = aux -> next;
 	}
 }
@@ -105,7 +103,6 @@ void percorreLogProximo(ListaLog *lista){
 void percorreLogAnterior(ListaLog *lista){
 	Log *aux = lista -> tail;
 	while (aux != NULL){
-		printf("%d \n", aux -> tempo);
 		aux = aux -> prev;
 	}
 }
