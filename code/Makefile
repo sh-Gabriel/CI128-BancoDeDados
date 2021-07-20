@@ -1,5 +1,5 @@
-escalona: graph.o main.o log.o
-	gcc -o escalona graph.o main.o erro.o log.o
+escalona: graph.o main.o log.o output.o
+	gcc -o escalona graph.o main.o erro.o log.o output.o -lm
 
 erro.o: erro.c
 	gcc -c erro.c -Wall
@@ -12,6 +12,9 @@ main.o: main.c
 
 graph.o: graph.c erro.o
 	gcc -c graph.c -Wall
+
+output.o: output.c graph.o erro.o
+	gcc -c output.c -Wall
 
 clean:
 	rm -rf *.o escalona logs
