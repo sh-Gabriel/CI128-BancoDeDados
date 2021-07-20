@@ -1,6 +1,6 @@
 /**
  * @file main.c
- * @author your name (you@domain.com)
+ * @author Gabriel S.H. & Vinícius V.T.S.
  * @brief Função chamada pelo usuário para execução do programa
  * @version 0.1
  * @date 2021-07-20

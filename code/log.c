@@ -1,6 +1,6 @@
 /**
  * @file log.c
- * @author your name (you@domain.com)
+ * @author Gabriel S.H. & Vinícius V.T.S.
  * @brief Arquivo contendo as esturturas e funções relacionadas à criação de uma lista d
  * logs, criada conforme transações são lidas. A log é armazenada em um arquivo "log.log" durante
  * a execução para que erros sejam debugados. A estura é utilizada para montar as visões referentes 

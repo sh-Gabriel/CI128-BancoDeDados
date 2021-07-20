@@ -1,6 +1,6 @@
 /**
  * @file graph.c
- * @author your name (you@domain.com)
+ * @author Gabriel S.H. & Vinícius V.T.S.
  * @brief Arquivo contendo as esturturas e funções relacionadas à criação de uma lista de
  * vértices, criada conforme transações são lidas. Utilizada para o Algoritmo de teste de 
  * seriabilidade quanto ao conflito

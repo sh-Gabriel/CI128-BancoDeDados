@@ -1,6 +1,6 @@
 /**
  * @file graph.h
- * @author your name (you@domain.com)
+ * @author Gabriel S.H. & Vinícius V.T.S.
  * @brief Arquivo header de graph.c
  * @version 0.1
  * @date 2021-07-20
