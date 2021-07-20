@@ -8,7 +8,7 @@
 #include "log.h"
 #include "erro.h"
 #include "graph.h"
-
+#include "output.h"
 
 /**
  * Função chamada pelo Sistema Operacional para execução do programa
@@ -25,6 +25,9 @@ int main(int argc, char *argv[]){
 	ListaLog *logs = NULL;
 	Vertex *commited;
 	VertexList *lista = NULL;
+
+	bool isSerial, isEquivalent;
+	int id_escalonamento = 0;
 
 	FILE *f = fopen("logs", "w");
 	if (f == NULL)
@@ -47,7 +50,7 @@ int main(int argc, char *argv[]){
 		printf("\tValor encontrado: %d \n", teste -> V );
 		// printf("b");
 		printf("Lista %p\n", logs);
-		
+		percorreLogProximo(logs);
 		if (operacao != 'C'){
 			//TODO se for o caso, fazer aqui a verificação para reiniciar o log e os vértices
 			logs = insereLog(logs, tempo, identificador, operacao, atributo);
@@ -63,10 +66,14 @@ int main(int argc, char *argv[]){
 			commited = busca_vertice(lista, identificador);
 			commited->commitado = true;
 			if(verifica_commit(lista)){
+				id_escalonamento++;
 				imprimeLogs( logs, f);
-				bool ehCiclico = verifica_ciclo(lista);
-
+				isSerial = !verifica_ciclo(lista);
+				isEquivalent = false;
+				// TODO isEquivalent = visao_equivalente(...)
 				// !Posteriormente criar rotinas pra dar free nos ponteiros
+				print_output(lista, id_escalonamento, isSerial, isEquivalent, tamanho_lista(lista));
+				printf("%d\n", (int)sizeof(10000));
 				logs = NULL;
 				lista = NULL;
 			}
