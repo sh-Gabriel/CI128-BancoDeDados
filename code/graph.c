@@ -5,11 +5,12 @@
  * @param v O primeiro vértice que a lista irá conter.
  * @retval A lista inicializada.
  */
-VertexList *adiciona_lista_vertices(Vertex *v){
-    VertexList *lista = (VertexList *)malloc(sizeof(VertexList));
-    lista->next = NULL;
-    lista->vertice = v;
-    return lista;
+void adiciona_vertice_lista(VertexList *lista, int v){
+    if (lista == NULL)
+        imprimeErro("A lista passada para a função adiciona_vertice_lista é nula");
+    lista->next = (VertexList *)malloc(sizeof(VertexList));
+    lista->next->next = NULL;
+    lista->next->vertice = cria_vertice(v);
 }
 
 /**
@@ -26,23 +27,14 @@ VertexList *adiciona_vertice(VertexList *list, int vertex_key){
     }
 	// retorna caso 
 	VertexList *iterator = list;
-	if (iterator -> vertice -> V == vertex_key){
-		return list;
+    while(iterator->next != NULL){
+        if (iterator -> vertice -> V == vertex_key){
+            return list;
+        }
+        iterator = iterator->next;
 	}
-	
-	while(iterator -> next != NULL){
-		// retorna caso o valor ja exista
-		if (iterator -> vertice -> V == vertex_key)
-			return list;
-		iterator = iterator -> next;
-	}
-	// adiciona novo nodo na lista 
-	VertexList *aux = inicia_lista_vertice(vertex_key);
-	if (aux == NULL){
-		imprimeErro("Erro ao criar nodo na lista de vertices");
-		return NULL;
-	}
-	iterator -> next = aux;
+    adiciona_vertice_lista(list, vertex_key);
+
     return list;
 }
 /**
@@ -198,4 +190,24 @@ bool verifica_ciclo(VertexList *list){
         iterator = iterator->next;
     }
     return false;
+}
+
+/**
+ * @brief Percorre a lista de vértices verificando se todas as transações dos vértices já sofreram commit
+ * 
+ * @param list A lista de vértices existente no agendamento
+ * @return true Todos sofreram o commit
+ * @return false Algum ainda não sofreu o commit
+ */
+bool verifica_commit(VertexList *list){
+    if (list == NULL)
+        imprimeErro("Uma lista nula foi passada para a função verifica_commit");
+    VertexList *iterator = list;
+    while(iterator != NULL){
+        printf("\t\tO vértice da vez %d e seu commit %d\n", iterator->vertice->V, iterator->vertice->commitado);
+        if (!iterator->vertice->commitado)
+            return false;
+        iterator = iterator->next;
+    }
+    return true;
 }

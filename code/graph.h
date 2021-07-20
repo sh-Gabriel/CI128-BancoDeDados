@@ -47,7 +47,7 @@ Graph *inicia_grafo();
  * Adiciona um vértice na lista que contém os vértices (transações) atuais
  * -Desconsidera arcos
 */
-VertexList *inicia_lista_vertice(int);
+void adiciona_vertice_lista(VertexList *lista, int v);
 
 
 /**
@@ -62,6 +62,13 @@ VertexList *adiciona_vertice(VertexList *list, int vertex_key);
  * @retval A estrutura criada e ajustada
 */
 Vertex *cria_vertice(int vertex);
+
+/**
+ * Inicia a lista de vértices com um recém criado.
+ * @param vertex A chave do vértice a ser criado.
+ * @retval O ponteiro para a lista.
+ */
+VertexList *inicia_lista_vertice(int vertex);
 
 /**
  * Inicia a lista de vértices adjascentes a um vértice
@@ -93,5 +100,7 @@ Vertex *busca_vertice(VertexList *list, int chave);
 void criaArco(Vertex *origin, Vertex *destination);
 
 bool itera_adjascentes(Vertex *v);
+
+bool verifica_commit(VertexList *list);
 
 #endif
