@@ -23,7 +23,7 @@ int main(int argc, char *argv[]){
 	char line[1024];
 	// VertexList *lista = NULL;
 	ListaLog *logs = NULL;
-
+	Vertex *commited;
 	VertexList *lista = NULL;
 
 	FILE *f = fopen("logs", "w");
@@ -44,7 +44,7 @@ int main(int argc, char *argv[]){
 		// printf("Buscando valor %d: \n", identificador);
 		Vertex *teste = busca_vertice( lista, identificador);
 		if (teste != NULL)
-			printf("\tValor encontrado: %d \n", teste -> V );
+		printf("\tValor encontrado: %d \n", teste -> V );
 		// printf("b");
 		printf("Lista %p\n", logs);
 		
@@ -58,14 +58,18 @@ int main(int argc, char *argv[]){
 				printf("%d tem conflito com %d \n", logs -> tail -> id, testeConflito);
 				criaArco(busca_vertice(lista, testeConflito), busca_vertice(lista, logs->tail->id));
 			}
-		} else{
-			imprimeLogs( logs, f);
-			bool ehCiclico = verifica_ciclo(lista);
-			printf("commit %s\n\n", ehCiclico?"true":"false");
+		} else {
+			printf("\n\n");
+			commited = busca_vertice(lista, identificador);
+			commited->commitado = true;
+			if(verifica_commit(lista)){
+				imprimeLogs( logs, f);
+				bool ehCiclico = verifica_ciclo(lista);
 
-			// !Posteriormente criar rotinas pra dar free nos ponteiros
-			logs = NULL;
-			lista = NULL;
+				// !Posteriormente criar rotinas pra dar free nos ponteiros
+				logs = NULL;
+				lista = NULL;
+			}
 		}
 
 	}
