@@ -1,3 +1,16 @@
+/**
+ * @file graph.c
+ * @author Gabriel S.H. & Vinícius V.T.S.
+ * @brief Arquivo contendo as esturturas e funções relacionadas à criação de uma lista de
+ * vértices, criada conforme transações são lidas. Utilizada para o Algoritmo de teste de 
+ * seriabilidade quanto ao conflito
+ * @version 0.1
+ * @date 2021-07-20
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
 #include "graph.h"
 
 /**
@@ -124,7 +137,6 @@ void criaArco(Vertex *origin, Vertex *destination){
     if(origin->adj == NULL){
         /*inicia a lista de Arcos dele*/
         inicia_adj(origin, destination);
-        printf("Algo %p\n", origin->adj->destino);
     } else {
         ListaAdj *iter = origin->adj;
         while(iter->next != NULL){
@@ -144,29 +156,22 @@ void criaArco(Vertex *origin, Vertex *destination){
  * @return false Caso contrário
  */
 bool itera_adjascentes(Vertex *v){
-    printf("Entrou %p, visitado %d\n", v, v->visitado);
     if(v == NULL){
-        printf("Sem vizinhança\n");
         return false;
-        imprimeErro("Não há uma vizinhança para ser percorrida na função itera_vizinhos");
     }
     bool result = false;
     if(v->visitado == 1){
-        printf("%d o destino antes do return \n", v->V);
         //Existe ciclo
         return true;
     }
     if(v->visitado == 2){
-        printf("Retornou falso??\n");
         //O vértice foi visitado e não teve ciclo
         return false;
     }
     v->visitado++;
     ListaAdj *iter = v->adj;
     while(iter != NULL && !result){
-        printf("A chave de iter %d %d\n", iter->destino->V, iter->destino->visitado);
         result = itera_adjascentes(iter->destino);
-        printf("Depois\n");
         iter = iter->next;
     }
     v->visitado++;
@@ -188,7 +193,6 @@ bool verifica_ciclo(VertexList *list){
         if(iterator->vertice->visitado == 0){
             //Se o vértice tem vizinhança
             if(iterator->vertice->adj != NULL){
-                printf("A vizinhança é de %d\n", iterator->vertice->V);
                 if (itera_adjascentes(iterator->vertice)){
                     return true;
                 }
@@ -211,10 +215,28 @@ bool verifica_commit(VertexList *list){
         imprimeErro("Uma lista nula foi passada para a função verifica_commit");
     VertexList *iterator = list;
     while(iterator != NULL){
-        printf("\t\t%d\n", iterator->vertice->V);
         if (!iterator->vertice->commitado)
             return false;
         iterator = iterator->next;
     }
     return true;
+}
+
+/**
+ * @brief Usar free em todas as esturturas referentes à vértices alocadas até então
+ * 
+ * @param lista A lista de vértices que será liberada
+ */
+void *finaliza_lista_vertices(VertexList *lista){
+    if (lista == NULL)
+        return NULL;
+    VertexList *aux = lista;
+    while (lista != NULL){
+        aux = lista;
+        lista = lista->next;
+        free(aux->vertice->adj);
+        free(aux->vertice);
+        free(aux);
+    }
+    return NULL;
 }

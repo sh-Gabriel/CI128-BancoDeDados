@@ -1,7 +1,14 @@
 /**
-*	@file 	main.c
-*	@brief	Contém a função main do programa
-*/
+ * @file log.h
+ * @author Gabriel S.H. & Vinícius V.T.S.
+ * @brief Arquivo header de log.c
+ * @version 0.1
+ * @date 2021-07-20
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
 #ifndef __LOG__
 #define __LOG__
 
@@ -16,7 +23,7 @@
 typedef struct ListaLog{ 
     struct Log *head;
     struct Log *tail;
-    struct Log *size;
+    int size;
 } ListaLog;
 
 /**
@@ -89,5 +96,12 @@ void percorreLogAnterior(ListaLog *lista);
 int buscaConflito(ListaLog *lista);
 
 void imprimeLogs(ListaLog *lista, FILE *f);
+
+/**
+ * @brief Usar free em todas as esturturas referentes à log alocadas até então
+ * 
+ * @param lista A lista de logs que será liberada
+ */
+void *finaliza_lista_log(ListaLog *lista);
 
 #endif

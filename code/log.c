@@ -1,7 +1,17 @@
 /**
-*	@file 	main.c
-*	@brief	Contém a função main do programa
-*/
+ * @file log.c
+ * @author Gabriel S.H. & Vinícius V.T.S.
+ * @brief Arquivo contendo as esturturas e funções relacionadas à criação de uma lista d
+ * logs, criada conforme transações são lidas. A log é armazenada em um arquivo "log.log" durante
+ * a execução para que erros sejam debugados. A estura é utilizada para montar as visões referentes 
+ * ao Algoritmo de visão equivalente
+ * @version 0.1
+ * @date 2021-07-20
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -44,7 +54,6 @@ ListaLog *insereLog(ListaLog *lista, int time, int identificador, char op, char 
 
 	// insere no meio
 	while (iterator -> next != NULL){
-		// printf("iterator: %d \n", iterator -> tempo);
 		if (time < iterator -> tempo){
 			iterator -> prev -> next = newLog;
 			newLog -> prev = iterator -> prev;
@@ -87,7 +96,6 @@ void percorreLogProximo(ListaLog *lista){
 		return;
 	Log *aux = lista -> head;
 	while (aux != NULL){
-		printf("%d \n", aux -> tempo);
 		aux = aux -> next;
 	}
 }
@@ -95,7 +103,6 @@ void percorreLogProximo(ListaLog *lista){
 void percorreLogAnterior(ListaLog *lista){
 	Log *aux = lista -> tail;
 	while (aux != NULL){
-		printf("%d \n", aux -> tempo);
 		aux = aux -> prev;
 	}
 }
@@ -131,5 +138,23 @@ void imprimeLogs(ListaLog *lista, FILE *f){
 		fprintf(f, "%d %d %c %c \n", aux -> tempo, aux -> id, aux -> operacao, aux -> atributo);
 		aux = aux -> next;
 	}
+
+}
+/**
+ * @brief Usar free em todas as esturturas referentes à log alocadas até então
+ * 
+ * @param lista A lista de logs que será liberada
+ */
+void *finaliza_lista_log(ListaLog *lista){
+	if (lista == NULL)
+		return NULL;
+	Log *aux = lista->head;
+	while(aux->next != NULL){
+		aux = aux->next;
+		free(aux->prev);
+	}
+	free(aux);
+	free(lista);
+	return NULL;
 
 }

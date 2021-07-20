@@ -1,3 +1,14 @@
+/**
+ * @file erro.c
+ * @author Gabriel S.H. & Vinícius V.T.S.
+ * @brief Arquivo contendo funções referentes à geração de saída do programa
+ * @version 0.1
+ * @date 2021-07-20
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
 #include "output.h"
 
 /**
@@ -35,17 +46,14 @@ void print_output(VertexList *lista, int ident_escalonamento, bool isSerial, boo
     
     int tam = TAM_CMD + (int)log10(ident_escalonamento) + 2*size_lista - 1;
     VertexList *iterator = lista;
-    printf("Abacate %d\n", size_lista);
     char output[tam];
     
     //! overkill, mas não pensei em algo de tamanho menor o numero não estoure o tamanho da string
     char auxiliar_id_transacao[size_lista];
     //1o campo, identificador escalonamento
-    sprintf(output, "%d ", ident_escalonamento);
     //2o campo, a lista dos ids das transações que estão contidas no escalonamento
 
     while(iterator->next != NULL){
-        printf("\titerator %d\n", iterator->vertice->V);
         sprintf(auxiliar_id_transacao, "%d,", iterator->vertice->V);
         strcat(output, auxiliar_id_transacao);
         iterator = iterator->next;

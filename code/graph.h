@@ -1,13 +1,22 @@
 /**
-*	@file 	graph.h
-*	@brief	Biblioteca de graph.c
-*/
+ * @file graph.h
+ * @author Gabriel S.H. & Vinícius V.T.S.
+ * @brief Arquivo header de graph.c
+ * @version 0.1
+ * @date 2021-07-20
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
+
 #ifndef __GRAPH__
 #define __GRAPH__
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include "erro.h"
+
 
 typedef struct ListaAdj{
     struct Vertex *destino;
@@ -124,5 +133,13 @@ bool verifica_ciclo(VertexList *list);
  * @return false Algum ainda não sofreu o commit
  */
 bool verifica_commit(VertexList *list);
+
+
+/**
+ * @brief Usar free em todas as esturturas referentes à vértices alocadas até então
+ * 
+ * @param lista A lista de vértices que será liberada
+ */
+void *finaliza_lista_vertices(VertexList *lista);
 
 #endif
