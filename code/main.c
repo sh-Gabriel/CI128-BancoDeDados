@@ -1,7 +1,13 @@
 /**
-*	@file 	main.c
-*	@brief	Contém a função main do programa
-*/
+ * @file main.c
+ * @author your name (you@domain.com)
+ * @brief Função chamada pelo usuário para execução do programa
+ * @version 0.1
+ * @date 2021-07-20
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

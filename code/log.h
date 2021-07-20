@@ -1,7 +1,14 @@
 /**
-*	@file 	main.c
-*	@brief	Contém a função main do programa
-*/
+ * @file log.h
+ * @author your name (you@domain.com)
+ * @brief Arquivo header de log.c
+ * @version 0.1
+ * @date 2021-07-20
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
 #ifndef __LOG__
 #define __LOG__
 

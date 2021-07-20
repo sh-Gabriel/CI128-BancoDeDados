@@ -1,13 +1,22 @@
 /**
-*	@file 	graph.h
-*	@brief	Biblioteca de graph.c
-*/
+ * @file graph.h
+ * @author your name (you@domain.com)
+ * @brief Arquivo header de graph.c
+ * @version 0.1
+ * @date 2021-07-20
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
+
 #ifndef __GRAPH__
 #define __GRAPH__
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include "erro.h"
+
 
 typedef struct ListaAdj{
     struct Vertex *destino;
