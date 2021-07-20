@@ -74,8 +74,9 @@ int main(int argc, char *argv[]){
 				// !Posteriormente criar rotinas pra dar free nos ponteiros
 				print_output(lista, id_escalonamento, isSerial, isEquivalent, tamanho_lista(lista));
 				printf("%d\n", (int)sizeof(10000));
-				logs = NULL;
-				lista = NULL;
+				logs = finaliza_lista_log(logs);
+				// logs = NULL;
+				lista = finaliza_lista_vertices(lista);
 			}
 		}
 

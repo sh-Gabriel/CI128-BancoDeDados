@@ -218,3 +218,22 @@ bool verifica_commit(VertexList *list){
     }
     return true;
 }
+
+/**
+ * @brief Usar free em todas as esturturas referentes à vértices alocadas até então
+ * 
+ * @param lista A lista de vértices que será liberada
+ */
+void *finaliza_lista_vertices(VertexList *lista){
+    if (lista == NULL)
+        return NULL;
+    VertexList *aux = lista;
+    while (lista != NULL){
+        aux = lista;
+        lista = lista->next;
+        free(aux->vertice->adj);
+        free(aux->vertice);
+        free(aux);
+    }
+    return NULL;
+}

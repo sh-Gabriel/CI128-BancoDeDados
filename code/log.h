@@ -16,7 +16,7 @@
 typedef struct ListaLog{ 
     struct Log *head;
     struct Log *tail;
-    struct Log *size;
+    int size;
 } ListaLog;
 
 /**
@@ -89,5 +89,12 @@ void percorreLogAnterior(ListaLog *lista);
 int buscaConflito(ListaLog *lista);
 
 void imprimeLogs(ListaLog *lista, FILE *f);
+
+/**
+ * @brief Usar free em todas as esturturas referentes à log alocadas até então
+ * 
+ * @param lista A lista de logs que será liberada
+ */
+void *finaliza_lista_log(ListaLog *lista);
 
 #endif

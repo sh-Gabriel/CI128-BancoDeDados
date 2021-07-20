@@ -133,3 +133,21 @@ void imprimeLogs(ListaLog *lista, FILE *f){
 	}
 
 }
+/**
+ * @brief Usar free em todas as esturturas referentes à log alocadas até então
+ * 
+ * @param lista A lista de logs que será liberada
+ */
+void *finaliza_lista_log(ListaLog *lista){
+	if (lista == NULL)
+		return NULL;
+	Log *aux = lista->head;
+	while(aux->next != NULL){
+		aux = aux->next;
+		free(aux->prev);
+	}
+	free(aux);
+	free(lista);
+	return NULL;
+
+}

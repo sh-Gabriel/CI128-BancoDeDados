@@ -125,4 +125,12 @@ bool verifica_ciclo(VertexList *list);
  */
 bool verifica_commit(VertexList *list);
 
+
+/**
+ * @brief Usar free em todas as esturturas referentes à vértices alocadas até então
+ * 
+ * @param lista A lista de vértices que será liberada
+ */
+void *finaliza_lista_vertices(VertexList *lista);
+
 #endif
