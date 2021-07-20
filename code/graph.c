@@ -28,7 +28,7 @@ VertexList *adiciona_vertice(VertexList *list, int vertex_key){
     }
 	// retorna caso 
 	VertexList *iterator = list;
-    while(iterator->next != NULL){
+    while(iterator != NULL){
         if (iterator -> vertice -> V == vertex_key){
             return list;
         }
@@ -211,6 +211,7 @@ bool verifica_commit(VertexList *list){
         imprimeErro("Uma lista nula foi passada para a função verifica_commit");
     VertexList *iterator = list;
     while(iterator != NULL){
+        printf("\t\t%d\n", iterator->vertice->V);
         if (!iterator->vertice->commitado)
             return false;
         iterator = iterator->next;

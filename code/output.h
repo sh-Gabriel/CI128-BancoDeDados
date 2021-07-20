@@ -6,4 +6,6 @@
 
 #define TAM_CMD 8
 
-void print_output(VertexList *lista, int ident_escalonamento, bool isSerial, bool isEquivalent, int size_lista, int maior_id_transacao);
+int tamanho_lista(VertexList *lista);
+
+void print_output(VertexList *lista, int ident_escalonamento, bool isSerial, bool isEquivalent, int size_lista);

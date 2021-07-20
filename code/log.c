@@ -83,6 +83,8 @@ Log *criaLog(int time, int identificador, char op, char tribute){
 }
 
 void percorreLogProximo(ListaLog *lista){
+	if (lista == NULL)
+		return;
 	Log *aux = lista -> head;
 	while (aux != NULL){
 		printf("%d \n", aux -> tempo);

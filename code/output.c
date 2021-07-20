@@ -1,22 +1,49 @@
 #include "output.h"
 
+/**
+ * @brief Calcula o tamanho em bytes que as chaves dos vértices, somadas, têm
+ * 
+ * @param lista A lista de vértices existente
+ * @return int O tamanho em bytes
+ */
+int tamanho_lista(VertexList *lista){
+    if (lista == NULL)
+        return 0;
+    VertexList *iterator = lista;
+    int size = 0;
+    while(iterator != NULL){
+        size+=(int)sizeof(iterator->vertice->V);
+        iterator = iterator->next;
+    }
+    return size;
+}
 
-void print_output(VertexList *lista, int ident_escalonamento, bool isSerial, bool isEquivalent, int size_lista, int maior_id_transacao){
+/**
+ * @brief Formata e printa a output do programa
+ * 
+ * @param lista A lista de vértices do escalonamento corrente
+ * @param ident_escalonamento A id do escalonamento
+ * @param isSerial O escalonamento ser serial
+ * @param isEquivalent O escalonamento ser equivalente
+ * @param size_lista O tamanho em bytes da soma dos vértices da lista
+ */
+void print_output(VertexList *lista, int ident_escalonamento, bool isSerial, bool isEquivalent, int size_lista){
     if (lista == NULL)
         imprimeErro("Uma lista vazia foi passada para a função print_output");
     if (ident_escalonamento == 0)
         imprimeErro("Um ident_escalonamento foi passado zerado para a função print_output");
-    printf("ident_escal %d, sizelista %d\n", ident_escalonamento, size_lista);
+    
     int tam = TAM_CMD + (int)log10(ident_escalonamento) + 2*size_lista - 1;
     VertexList *iterator = lista;
-    printf("Abacate %d\n", tam);
+    printf("Abacate %d\n", size_lista);
     char output[tam];
-    char auxiliar_id_transacao[maior_id_transacao + 1];
+    
+    //! overkill, mas não pensei em algo de tamanho menor o numero não estoure o tamanho da string
+    char auxiliar_id_transacao[size_lista];
     //1o campo, identificador escalonamento
     sprintf(output, "%d ", ident_escalonamento);
     //2o campo, a lista dos ids das transações que estão contidas no escalonamento
-    if(iterator->next == NULL)
-        imprimeErro("Amigao?");
+
     while(iterator->next != NULL){
         printf("\titerator %d\n", iterator->vertice->V);
         sprintf(auxiliar_id_transacao, "%d,", iterator->vertice->V);
