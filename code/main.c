@@ -48,12 +48,8 @@ int main(int argc, char *argv[]){
 		char operacao = strtok(NULL, " ")[0];
 		char atributo = strtok(NULL, " ")[0];
 
-		// printf("Adicionando valor %d: \n", identificador);
 		lista = adiciona_vertice( lista, identificador);
-		// printf("Buscando valor %d: \n", identificador);
-		Vertex *teste = busca_vertice( lista, identificador);
-		if (teste != NULL)
-		// printf("b");
+
 		percorreLogProximo(logs);
 		if (operacao != 'C'){
 			//TODO se for o caso, fazer aqui a verificação para reiniciar o log e os vértices
@@ -81,20 +77,6 @@ int main(int argc, char *argv[]){
 
 	}
 
-	// Vertex *a1 = busca_vertice(lista, 1);
-	// Vertex *a2 = busca_vertice(lista, 2);
-	// Vertex *a3 = busca_vertice(lista, 3);
-	// Vertex *a4 = busca_vertice(lista, 4);
-	// criaArco(a1, a2);
-	// criaArco(a3, a4);
-	// criaArco(a2, a3);
-	// criaArco(a3, a1);
-	// criaArco(a2, a1);
-	// printf("O destino do arco %d\n", a2->adj->destino->V);
-	// bool a = verifica_ciclo(lista);
-	// printf("O result?? %d\n", a);
-
-	
 	fclose(f);
 	return 0;
 }

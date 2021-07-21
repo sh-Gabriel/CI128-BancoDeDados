@@ -12,4 +12,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+ * @brief Imprimir um erro no terminal e encerrar a execução
+ * 
+ * @param erro O texto do erro ocorrido
+ */
 void imprimeErro ( char* erro );

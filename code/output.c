@@ -51,8 +51,8 @@ void print_output(VertexList *lista, int ident_escalonamento, bool isSerial, boo
     //! overkill, mas não pensei em algo de tamanho menor o numero não estoure o tamanho da string
     char auxiliar_id_transacao[size_lista];
     //1o campo, identificador escalonamento
+    sprintf(output, "%d ", ident_escalonamento);
     //2o campo, a lista dos ids das transações que estão contidas no escalonamento
-
     while(iterator->next != NULL){
         sprintf(auxiliar_id_transacao, "%d,", iterator->vertice->V);
         strcat(output, auxiliar_id_transacao);

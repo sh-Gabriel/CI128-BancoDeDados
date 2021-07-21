@@ -14,12 +14,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-// #include "erro.c"
 #include <stdbool.h>
 
-/**
- * Estrutura de dados para armazenar inicio e fim da lista de logs
-*/
+/*! \struct
+ * @brief Estrutura para armazenar inicio e fim da lista de logs
+ */
 typedef struct ListaLog{ 
     struct Log *head;
     struct Log *tail;
@@ -29,6 +28,12 @@ typedef struct ListaLog{
 /**
  * Estrutura de dados para cada nodo da lista de logs
 */
+/*! \struct
+ * @brief Estrutura para representar os nodos da lista de logs 
+ * É duplamente encadeada, e em relação à transação que representa, contém
+ * o tempo em que ela foi executada, o id, a operação executada e o atributo
+ * alvo da operação
+ */
 typedef struct Log{
     struct Log *prev;
     int tempo;
@@ -37,8 +42,6 @@ typedef struct Log{
     char atributo;
     struct Log *next;
 } Log;
-
-
 
 /**
  * Inicializa a lista de logs vazia.

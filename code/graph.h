@@ -18,16 +18,22 @@
 #include "erro.h"
 
 
+/*! \struct
+ * @brief Estrutura para armazenar a vizinhança de um vértice
+ * A vizinhança é dada por outras estruturas vértice, utilizada no algoritmo 1 para
+ * buscar a existência de um ciclo no grafo gerado pelas transações
+ */
 typedef struct ListaAdj{
     struct Vertex *destino;
     struct ListaAdj *next;
 } ListaAdj;
 
-// T1 T2
-// Vertice *T1 = inicia_grafo(1);
-
-
-//Unidade vértice
+/*! \struct
+ * @brief Estrutura para armazenar as informações de um vértice gerado pelas transações
+ * Composta pela chave do vértice, um valor que representa se ele foi visitado ou percorrido,
+ * uma flag para saber se a transação representada pelo vértice sofreu commit e a vizinhança
+ * do vértice
+ */
 typedef struct Vertex{
     int V;
     int visitado;
@@ -36,15 +42,15 @@ typedef struct Vertex{
     
 } Vertex;
 
+/*! \struct
+ * @brief Estrutura para armazenar a lista de vértices criadas pela leitura da entrada
+ * Utilizada para saber quais são os vértices existentes a serem verificados na busca de 
+ * ciclos do algoritmo 1
+ */
 typedef struct VertexList{
     struct Vertex *vertice;
     struct VertexList *next;
 } VertexList;
-
-//lista que contém os vértices existentes; não considera arcos
-typedef struct Graph{
-    struct VertexList *lista;
-} Graph;
 
 /**
  * @brief Adiciona um vértice na lista de vértices
