@@ -1,6 +1,6 @@
 /**
  * @file log.h
- * @author Gabriel S.H. & Vinícius V.T.S.
+ * @author Gabriel S.H. & Vinícius T. V. S.
  * @brief Arquivo header de log.c
  * @version 0.1
  * @date 2021-07-20

@@ -1,6 +1,6 @@
 /**
  * @file erro.c
- * @author Gabriel S.H. & Vinícius V.T.S.
+ * @author Gabriel S.H. & Vinícius T. V. S.
  * @brief Arquivo contendo a função de erro usada no código
  * @version 0.1
  * @date 2021-07-20

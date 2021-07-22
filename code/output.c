@@ -1,6 +1,6 @@
 /**
  * @file erro.c
- * @author Gabriel S.H. & Vinícius V.T.S.
+ * @author Gabriel S.H. & Vinícius T. V. S.
  * @brief Arquivo contendo funções referentes à geração de saída do programa
  * @version 0.1
  * @date 2021-07-20

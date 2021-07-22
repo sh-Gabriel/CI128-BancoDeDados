@@ -1,6 +1,6 @@
 /**
  * @file main.c
- * @author Gabriel S.H. & Vinícius V.T.S.
+ * @author Gabriel S.H. & Vinícius T. V. S.
  * @brief Função chamada pelo usuário para execução do programa
  * @version 0.1
  * @date 2021-07-20
@@ -50,7 +50,6 @@ int main(int argc, char *argv[]){
 		int identificador = atoi(strtok(NULL, " "));
 		char operacao = strtok(NULL, " ")[0];
 		char atributo = strtok(NULL, "\n")[0];
-
 		lista = adiciona_vertice( lista, identificador);
 		
 		if (operacao != 'C'){
@@ -79,6 +78,7 @@ int main(int argc, char *argv[]){
 
 		}
 	}
+	
 	fclose(f);
 	return 0;
 }

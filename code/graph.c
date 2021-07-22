@@ -1,6 +1,6 @@
 /**
  * @file graph.c
- * @author Gabriel S.H. & Vinícius V.T.S.
+ * @author Gabriel S.H. & Vinícius T. V. S.
  * @brief Arquivo contendo as esturturas e funções relacionadas à criação de uma lista de
  * vértices, criada conforme transações são lidas. Utilizada para o Algoritmo de teste de 
  * seriabilidade quanto ao conflito
@@ -39,18 +39,26 @@ VertexList *adiciona_vertice(VertexList *list, int vertex_key){
 		list = inicia_lista_vertice(vertex_key);
 		return list;
     }
+	
 	// retorna caso o valor ja exista
 	VertexList *iterator = list;
-
-    while(iterator != NULL){
-        if (iterator -> vertice -> V == vertex_key){
-            return list;
-        }
-        iterator = iterator->next;
-
+	
+	while(iterator -> next != NULL){
+		if (iterator -> vertice -> V == vertex_key)
+			return list;
+		iterator = iterator -> next;
 	}
-    adiciona_vertice_lista(list, vertex_key);
-
+	// caso de inserir no final
+	if (iterator -> vertice -> V == vertex_key){
+		return list;
+	}
+	// adiciona novo nodo na lista 
+	VertexList *aux = inicia_lista_vertice(vertex_key);
+	if (aux == NULL){
+		imprimeErro("Erro ao criar nodo na lista de vertices");
+		return NULL;
+	}
+	iterator -> next = aux;
     return list;
 }
 

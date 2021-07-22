@@ -87,12 +87,12 @@ bool comparaAgendamentos(ListaLog *S, ListaLog *S_linha){
 	return true;
 }
 
-ListaLog *criaAgendamento(int size, int *A, ListaLog *logs){
+ListaLog *criaAgendamento(int size, int *A, ListaLog *S){
 	ListaLog *S_linha = NULL;
 	Log *iterator;
 	// percorre cada 
 	for (int i = 0; i < size; i++){
-		iterator = logs -> head;
+		iterator = S -> head;
 		while(iterator  != NULL){
 			if (A[i] == iterator -> id){
 				S_linha = insereLogFinal(S_linha, iterator -> tempo, iterator -> id, iterator -> operacao, iterator -> atributo);
@@ -103,7 +103,6 @@ ListaLog *criaAgendamento(int size, int *A, ListaLog *logs){
 	
 	return S_linha;
 }
-
 
 bool generate(int size, int n, int *A, ListaLog *S){
 	
@@ -125,10 +124,10 @@ bool generate(int size, int n, int *A, ListaLog *S){
 		}
 	}
 
-	return 0;
+	return false;
 }
 
-bool equivalente(VertexList *vertices, ListaLog *logs){
+bool equivalente(VertexList *vertices, ListaLog *S){
 	VertexList *iterator = vertices;
 	int tam_vertices = 0;
 	// conta o num. de vertices
@@ -137,7 +136,7 @@ bool equivalente(VertexList *vertices, ListaLog *logs){
 		tam_vertices++;
 	}
 
-	// conta o num. de vertices
+	// cria o array com base no num. de vertices 
 	int *arrayVertices = (int *)malloc(sizeof(int)* tam_vertices);
 	iterator = vertices;
 	int i = 0;
@@ -148,5 +147,5 @@ bool equivalente(VertexList *vertices, ListaLog *logs){
 		i++;
 	}
 	
-	return generate(tam_vertices, tam_vertices, arrayVertices, logs);
+	return generate(tam_vertices, tam_vertices, arrayVertices, S);
 }
