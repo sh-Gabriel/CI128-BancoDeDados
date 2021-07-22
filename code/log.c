@@ -67,6 +67,27 @@ ListaLog *insereLog(ListaLog *lista, int time, int identificador, char op, char 
 	return lista;
 }
 
+
+ListaLog *insereLogFinal(ListaLog *lista, int time, int identificador, char op, char tribute){
+
+	// log que sera inserido na lista:
+	Log *newLog = criaLog(time, identificador, op, tribute);
+	if (lista == NULL){
+		lista = criaListaLog();
+		lista -> head = newLog;
+		lista -> tail = newLog;
+		lista -> size++;
+		return lista;
+	}
+
+	// insere no tail
+	newLog -> prev = lista -> tail; 
+	lista -> tail -> next = newLog;
+	lista -> tail = newLog;
+	lista -> size++;
+	return lista;
+}
+
 Log *criaLog(int time, int identificador, char op, char tribute){
 	Log *aux = (Log*) malloc(sizeof(Log));
 	if (aux == NULL)
@@ -85,7 +106,7 @@ Log *criaLog(int time, int identificador, char op, char tribute){
 void percorreLogProximo(ListaLog *lista){
 	Log *aux = lista -> head;
 	while (aux != NULL){
-		printf("%d \n", aux -> tempo);
+		printf("\t%d %d %c %c \n", aux -> tempo, aux -> id, aux -> operacao, aux -> atributo);
 		aux = aux -> next;
 	}
 }

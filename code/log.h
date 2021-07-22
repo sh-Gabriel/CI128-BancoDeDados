@@ -9,6 +9,9 @@
 #include <stdlib.h>
 // #include "erro.c"
 #include <stdbool.h>
+#include "log.h"
+#include "erro.h"
+#include "graph.h"
 
 /**
  * Estrutura de dados para armazenar inicio e fim da lista de logs
@@ -16,7 +19,7 @@
 typedef struct ListaLog{ 
     struct Log *head;
     struct Log *tail;
-    struct Log *size;
+    int size;
 } ListaLog;
 
 /**
@@ -89,5 +92,7 @@ void percorreLogAnterior(ListaLog *lista);
 int buscaConflito(ListaLog *lista);
 
 void imprimeLogs(ListaLog *lista, FILE *f);
+
+ListaLog *insereLogFinal(ListaLog *lista, int time, int identificador, char op, char tribute);
 
 #endif

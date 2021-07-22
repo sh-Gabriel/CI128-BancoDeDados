@@ -24,17 +24,16 @@ VertexList *adiciona_vertice(VertexList *list, int vertex_key){
 		list = inicia_lista_vertice(vertex_key);
 		return list;
     }
-	// retorna caso 
+	// retorna caso o valor ja exista
 	VertexList *iterator = list;
-	if (iterator -> vertice -> V == vertex_key){
-		return list;
-	}
 	
 	while(iterator -> next != NULL){
-		// retorna caso o valor ja exista
 		if (iterator -> vertice -> V == vertex_key)
 			return list;
 		iterator = iterator -> next;
+	}
+	if (iterator -> vertice -> V == vertex_key){
+		return list;
 	}
 	// adiciona novo nodo na lista 
 	VertexList *aux = inicia_lista_vertice(vertex_key);
@@ -199,3 +198,9 @@ bool verifica_ciclo(VertexList *list){
     }
     return false;
 }
+
+
+// int numVertices = (VertexList *list){
+//     VertexList *iterator = list;
+	
+// }

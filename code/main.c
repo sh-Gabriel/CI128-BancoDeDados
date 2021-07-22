@@ -5,9 +5,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "log.h"
+#include <stdbool.h>
 #include "erro.h"
+#include "log.h"
 #include "graph.h"
+#include "equivalente.h"
 
 
 /**
@@ -20,54 +22,59 @@
  * @retval	-1		Caso seja encontrado um erro durante a execução do programa
  */
 int main(int argc, char *argv[]){	 
+	// string de cada linha a ser lida
 	char line[1024];
-	// VertexList *lista = NULL;
+	// lista dos logs;
 	ListaLog *logs = NULL;
-
+	// "grafo", lista de vertices
 	VertexList *lista = NULL;
 
 	FILE *f = fopen("logs", "w");
 	if (f == NULL)
 		imprimeErro("Erro ao criar arquivo\n");
 	
-
 	while (fgets(line, 1024, stdin)){
 		
 		// a cada iteração separa o atributo de de cada linha
 		int tempo = atoi(strtok(line, " "));
 		int identificador = atoi(strtok(NULL, " "));
 		char operacao = strtok(NULL, " ")[0];
-		char atributo = strtok(NULL, " ")[0];
+		char atributo = strtok(NULL, "\n")[0];
 
-		// printf("Adicionando valor %d: \n", identificador);
+
 		lista = adiciona_vertice( lista, identificador);
-		// printf("Buscando valor %d: \n", identificador);
-		Vertex *teste = busca_vertice( lista, identificador);
-		if (teste != NULL)
-			printf("\tValor encontrado: %d \n", teste -> V );
-		// printf("b");
-		printf("Lista %p\n", logs);
+		// Vertex *teste = busca_vertice( lista, identificador);
+		// if (teste != NULL)
+		// 	printf("\tValor encontrado: %d \n", teste -> V );
+		// printf("Lista %p\n", logs);
 		
 		if (operacao != 'C'){
 			//TODO se for o caso, fazer aqui a verificação para reiniciar o log e os vértices
+				
+
 			logs = insereLog(logs, tempo, identificador, operacao, atributo);
 			int testeConflito = buscaConflito(logs);
 			if (testeConflito == -1)
 				printf("Nao possui conflitos \n");
 			else{
-				printf("%d tem conflito com %d \n", logs -> tail -> id, testeConflito);
+				// printf("%d tem conflito com %d \n", logs -> tail -> id, testeConflito);
 				criaArco(busca_vertice(lista, testeConflito), busca_vertice(lista, logs->tail->id));
 			}
 		} else{
+			bool tem_ciclo = verifica_ciclo(lista);
+			// printf("tem ciclo: %d \n", tem_ciclo);
 			imprimeLogs( logs, f);
-			bool ehCiclico = verifica_ciclo(lista);
-			printf("commit %s\n\n", ehCiclico?"true":"false");
+
+			printf("Lista: \n");
+			if (logs != NULL && lista != NULL)
+				equivalente(lista, logs);
+			// bool ehCiclico = verifica_ciclo(lista);
+			// printf("commit %s\n\n", ehCiclico?"true":"false");
 
 			// !Posteriormente criar rotinas pra dar free nos ponteiros
 			logs = NULL;
 			lista = NULL;
 		}
-
 	}
 
 	// Vertex *a1 = busca_vertice(lista, 1);
@@ -83,6 +90,8 @@ int main(int argc, char *argv[]){
 	// bool a = verifica_ciclo(lista);
 	// printf("O result?? %d\n", a);
 
+
+	
 	
 	fclose(f);
 	return 0;

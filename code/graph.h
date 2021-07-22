@@ -94,4 +94,6 @@ void criaArco(Vertex *origin, Vertex *destination);
 
 bool itera_adjascentes(Vertex *v);
 
+bool verifica_ciclo(VertexList *list);
+
 #endif
