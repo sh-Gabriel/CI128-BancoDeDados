@@ -76,20 +76,6 @@ ListaLog *insereLog(ListaLog *lista, int time, int identificador, char op, char 
 Log *criaLog(int time, int identificador, char op, char tribute);
 
 /**
- * @brief Debug
- * 
- * @param lista 
- */
-void percorreLogProximo(ListaLog *lista);
-
-/**
- * @brief Debug
- * 
- * @param lista 
- */
-void percorreLogAnterior(ListaLog *lista);
-
-/**
  * @brief Percorre a lista de logs do fim para o inicio buscando conflitos para o algoritmo de
  * teste de seriabilidade com base no ultimo log adicionado
  * 
@@ -106,5 +92,8 @@ void imprimeLogs(ListaLog *lista, FILE *f);
  * @param lista A lista de logs que será liberada
  */
 void *finaliza_lista_log(ListaLog *lista);
+
+
+ListaLog *insereLogFinal(ListaLog *lista, int time, int identificador, char op, char tribute);
 
 #endif

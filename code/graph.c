@@ -39,13 +39,15 @@ VertexList *adiciona_vertice(VertexList *list, int vertex_key){
 		list = inicia_lista_vertice(vertex_key);
 		return list;
     }
-	// retorna caso 
+	// retorna caso o valor ja exista
 	VertexList *iterator = list;
+
     while(iterator != NULL){
         if (iterator -> vertice -> V == vertex_key){
             return list;
         }
         iterator = iterator->next;
+
 	}
     adiciona_vertice_lista(list, vertex_key);
 
@@ -240,3 +242,4 @@ void *finaliza_lista_vertices(VertexList *lista){
     }
     return NULL;
 }
+

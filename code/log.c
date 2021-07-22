@@ -76,6 +76,27 @@ ListaLog *insereLog(ListaLog *lista, int time, int identificador, char op, char 
 	return lista;
 }
 
+
+ListaLog *insereLogFinal(ListaLog *lista, int time, int identificador, char op, char tribute){
+
+	// log que sera inserido na lista:
+	Log *newLog = criaLog(time, identificador, op, tribute);
+	if (lista == NULL){
+		lista = criaListaLog();
+		lista -> head = newLog;
+		lista -> tail = newLog;
+		lista -> size++;
+		return lista;
+	}
+
+	// insere no tail
+	newLog -> prev = lista -> tail; 
+	lista -> tail -> next = newLog;
+	lista -> tail = newLog;
+	lista -> size++;
+	return lista;
+}
+
 Log *criaLog(int time, int identificador, char op, char tribute){
 	Log *aux = (Log*) malloc(sizeof(Log));
 	if (aux == NULL)
@@ -89,22 +110,6 @@ Log *criaLog(int time, int identificador, char op, char tribute){
 	aux -> atributo = tribute;
 
 	return aux;
-}
-
-void percorreLogProximo(ListaLog *lista){
-	if (lista == NULL)
-		return;
-	Log *aux = lista -> head;
-	while (aux != NULL){
-		aux = aux -> next;
-	}
-}
-
-void percorreLogAnterior(ListaLog *lista){
-	Log *aux = lista -> tail;
-	while (aux != NULL){
-		aux = aux -> prev;
-	}
 }
 
 int buscaConflito(ListaLog *lista){
