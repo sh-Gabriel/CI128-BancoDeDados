@@ -42,23 +42,17 @@ VertexList *adiciona_vertice(VertexList *list, int vertex_key){
 	
 	// retorna caso o valor ja exista
 	VertexList *iterator = list;
-	
-	while(iterator -> next != NULL){
-		if (iterator -> vertice -> V == vertex_key)
-			return list;
-		iterator = iterator -> next;
+
+    while(iterator->next != NULL){
+        if (iterator -> vertice -> V == vertex_key){
+            return list;
+        }
+        iterator = iterator->next;
+
 	}
-	// caso de inserir no final
-	if (iterator -> vertice -> V == vertex_key){
-		return list;
-	}
-	// adiciona novo nodo na lista 
-	VertexList *aux = inicia_lista_vertice(vertex_key);
-	if (aux == NULL){
-		imprimeErro("Erro ao criar nodo na lista de vertices");
-		return NULL;
-	}
-	iterator -> next = aux;
+    if(iterator->vertice->V != vertex_key)
+        adiciona_vertice_lista(iterator, vertex_key);
+
     return list;
 }
 
