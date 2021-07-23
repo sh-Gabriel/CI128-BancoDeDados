@@ -9,6 +9,9 @@
  * 
  */
 
+#ifndef __OUTPUT__
+#define __OUTPUT__
+
 #include "stdio.h"
 #include "math.h"
 #include "string.h"
@@ -35,3 +38,5 @@ int tamanho_lista(VertexList *lista);
  * @param size_lista O tamanho em bytes da soma dos vértices da lista
  */
 void print_output(VertexList *lista, int ident_escalonamento, bool isSerial, bool isEquivalent, int size_lista);
+
+#endif

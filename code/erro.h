@@ -9,6 +9,9 @@
  * 
  */
 
+#ifndef __ERRO__
+#define __ERRO__
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -18,3 +21,5 @@
  * @param erro O texto do erro ocorrido
  */
 void imprimeErro ( char* erro );
+
+#endif
