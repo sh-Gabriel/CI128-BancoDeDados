@@ -44,56 +44,71 @@ typedef struct Log{
 } Log;
 
 /**
- * Inicializa a lista de logs vazia.
+ * @brief Inicia a estrutura de dados ListaLog
  * 
- * @retval A lista inicializada.
+ * @return ListaLog* O ponteiro para a estrutura recém-criada
  */
 ListaLog *criaListaLog(void);
 
 /**
- * @brief Adiciona um novo nodo a lista de logs.
+ * @brief Insete uma unidade de log recém-criada na lista de logs conforme o valor do tempo em que foi efetuada
  * 
- * @param lista A lista de logs atual
- * @param time O tempo em que o novo log sera executado
- * @param identificador O identificador que o novo log tera
- * @param op A operacao que o novo log tera que executar
- * @param tribute O atributo que o novo log ira alterar
- *
- * @return ListaLog* a lista de logs atualizada com o novo log 
+ * @param time O tempo da transação recebida
+ * @param identificador Um identificador único para cada log
+ * @param op A operação da transação
+ * @param atribute O atributo alvo da operação
+ * @return ListaLog* A lista atualizada
  */
 ListaLog *insereLog(ListaLog *lista, int time, int identificador, char op, char tribute);
 
 /**
- * @brief Inicializa um novo nodo para a lista de logs
+ * @brief Cria uma unidade da estrutura de dados abstrata "Log"
  * 
- * @param time O tempo em que o novo nodo sera executado
- * @param identificador O identificador que o novo nodo tera
- * @param op A operacao que o novo nodo tera que executar
- * @param tribute O atributo que o novo nodo ira alterar
- *
- * @return Log* O novo nodo criado
+ * @param time O tempo da transação recebida
+ * @param identificador Um identificador único para cada log (decidiu-se não usar o tempo como id único dada a possibilidade de erro e que duas transações
+ * venham anotadas com o mesmo valor)
+ * @param op A operação da transação
+ * @param atribute O atributo alvo da operação
+ * @return Log* O ponteiro para a estrutura criada
  */
 Log *criaLog(int time, int identificador, char op, char tribute);
 
 /**
- * @brief Percorre a lista de logs do fim para o inicio buscando conflitos para o algoritmo de
- * teste de seriabilidade com base no ultimo log adicionado
+ * @brief Percorre a lista de logs e verifica a ocorrência de conflito entre a última transição lida com as demais
  * 
- * @param lista A lista de logs 
- * @return int Caso encontre um conflito, retona o valor do vertice conflitante. Caso contrario, retorna -1.
+ * @param lista A lista de logs após a insersão da nova transação
+ * @return int O id da operação, caso um conflito tenha ocorrido, -1 caso contrário
  */
 int buscaConflito(ListaLog *lista);
 
+/**
+ * @brief Imprime a lista de logs atualmente criada no programa
+ * 
+ * Fora de uso. Caso queira utilizá-la, chame-a na main ou em alguma função que esteja usando uma lista do tipo
+ * "ListaLog" e forneça um ponteiro para o arquivo que será escrito.
+ * 
+ * @param lista A lista de logs
+ * @param f O arquivo em que as logs serão escritas
+ */
 void imprimeLogs(ListaLog *lista, FILE *f);
 
 /**
  * @brief Usar free em todas as esturturas referentes à log alocadas até então
  * 
  * @param lista A lista de logs que será liberada
+ * @return void* O ponteiro para a lista esvaziada (NULL)
  */
 void *finaliza_lista_log(ListaLog *lista);
 
-
+/**
+ * @brief Insete uma unidade de log recém-criada no final da lista de logs (utilizda nas permutações geradas pelo algoritmo 2)
+ * 
+ * @param time O tempo da transação recebida
+ * @param identificador Um identificador único para cada log
+ * @param op A operação da transação
+ * @param atribute O atributo alvo da operação
+ * @return ListaLog* A lista atualizada
+ */
 ListaLog *insereLogFinal(ListaLog *lista, int time, int identificador, char op, char tribute);
 
 #endif

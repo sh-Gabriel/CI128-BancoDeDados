@@ -169,6 +169,7 @@ int buscaConflito(ListaLog *lista){
 	// caso nao encontre conflito
 	return -1;
 }
+
 /**
  * @brief Imprime a lista de logs atualmente criada no programa
  * 
@@ -191,6 +192,7 @@ void imprimeLogs(ListaLog *lista, FILE *f){
 	}
 
 }
+
 /**
  * @brief Usar free em todas as esturturas referentes à log alocadas até então
  * 
