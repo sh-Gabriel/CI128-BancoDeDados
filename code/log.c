@@ -5,7 +5,7 @@
  * logs, criada conforme transações são lidas. A log é armazenada em um arquivo "log.log" durante
  * a execução para que erros sejam debugados. A estura é utilizada para montar as visões referentes 
  * ao Algoritmo de visão equivalente
- * @version 0.1
+ * @version 1.0
  * @date 2021-07-20
  * 
  * @copyright Copyright (c) 2021

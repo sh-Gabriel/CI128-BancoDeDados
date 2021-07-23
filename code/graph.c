@@ -4,7 +4,7 @@
  * @brief Arquivo contendo as esturturas e funções relacionadas à criação de uma lista de
  * vértices, criada conforme transações são lidas. Utilizada para o Algoritmo de teste de 
  * seriabilidade quanto ao conflito
- * @version 0.1
+ * @version 1.0
  * @date 2021-07-20
  * 
  * @copyright Copyright (c) 2021

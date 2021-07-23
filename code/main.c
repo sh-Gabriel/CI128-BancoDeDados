@@ -2,7 +2,7 @@
  * @file main.c
  * @author Gabriel S.H. & Vinícius T. V. S.
  * @brief Função chamada pelo usuário para execução do programa
- * @version 0.1
+ * @version 1.0
  * @date 2021-07-20
  * 
  * @copyright Copyright (c) 2021
@@ -52,14 +52,11 @@ int main(int argc, char *argv[]){
 		char atributo = strtok(NULL, "\n")[0];
 		lista = adiciona_vertice( lista, identificador);
 		
-		if (operacao != 'C'){
-			//TODO se for o caso, fazer aqui a verificação para reiniciar o log e os vértices
-				
+		if (operacao != 'C'){				
 			logs = insereLog(logs, tempo, identificador, operacao, atributo);
 			int testeConflito = buscaConflito(logs);
 			if (testeConflito != -1)
 				criaArco(busca_vertice(lista, testeConflito), busca_vertice(lista, logs->tail->id));
-			
 		} else {
 			commited = busca_vertice(lista, identificador);
 			commited->commitado = true;
@@ -70,7 +67,7 @@ int main(int argc, char *argv[]){
 				isEquivalent = false;
 				if (logs != NULL && lista != NULL)
 					isEquivalent = equivalente(lista, logs);
-				// TODO isEquivalent = visao_equivalente(...)
+				
 				print_output(lista, id_escalonamento, isSerial, isEquivalent, tamanho_lista(lista));
 				logs = finaliza_lista_log(logs);
 				lista = finaliza_lista_vertices(lista);

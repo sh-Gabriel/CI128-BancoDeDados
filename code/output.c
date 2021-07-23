@@ -1,8 +1,8 @@
 /**
- * @file erro.c
+ * @file output.c
  * @author Gabriel S.H. & Vinícius T. V. S.
  * @brief Arquivo contendo funções referentes à geração de saída do programa
- * @version 0.1
+ * @version 1.0
  * @date 2021-07-20
  * 
  * @copyright Copyright (c) 2021
